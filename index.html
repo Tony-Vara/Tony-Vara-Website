@@ -1,0 +1,3362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tony Vara | Tu Agente de Seguros</title>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+/* ========================================================= */
+/* === VARIABLES GLOBALES CORREGIDAS Y FALTANTES === */
+/* ========================================================= */
+:root {
+    /* Colores Principales */
+    --primary-color: #003366;    /* Azul Oscuro Corporativo */
+    --secondary-color: #FFCC00;  /* Amarillo para acentos */
+    --background-white: #ffffff;
+    --light-text-color: #555555;
+    --text: #333;                /* Color de texto general */
+    --blue-600: #007bff;         /* Azul primario (ej. el de los botones) */
+    --blue-700: #0056b3;         /* Azul más oscuro */
+    --secondary-dark: #FFA000;   /* Tono más oscuro de amarillo */
+    
+    /* NUEVA VARIABLE para la profundidad del Degradado */
+    --dark-blue-800: #001f3f;    /* Un azul casi negro, perfecto para el lujo */ 
+
+    /* Espaciado y Dimensiones */
+    --header-height: 80px;
+    --container-max-width: 1200px;
+    --spacing-small: 20px;
+}
+
+/* ========================================================= */
+/* === 1. RESET Y ESTRUCTURA BASE === */
+/* ========================================================= */
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; 
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(135deg, #e0e7ff, #f0f4f8);
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body.modal-open { 
+    overflow: hidden; 
+}
+
+/* Botones y Enlaces */
+a {
+    text-decoration: none;
+    color: var(--blue-600);
+    transition: color 0.3s;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .3s ease, background .3s ease;
+}
+
+.primary-btn {
+    background: var(--blue-600);
+    color: #fff;
+    border: none;
+}
+.primary-btn:hover {
+    background: var(--blue-700);
+    transform: translateY(-2px);
+}
+
+/* ========================================================= */
+/* === 2. HEADER Y BARRA DE ALIADOS === */
+/* ========================================================= */
+
+.main-header {
+    position: sticky; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--background-white); /* Fondo blanco */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
+    z-index: 1000;
+    padding: 15px var(--spacing-small);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.main-header.scrolled {
+    padding: 10px var(--spacing-small);
+}
+
+.header-content {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+/* --- ESTILOS DE BOTONES --- */
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 1.05rem;
+    white-space: nowrap;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+}
+
+.primary-btn:hover {
+    background-color: var(--blue-700);
+    border-color: var(--blue-700);
+    transform: translateY(-2px);
+}
+
+.quote-header-btn {
+    font-size: 1.05rem;
+}
+
+.menu-toggle {
+    display: none; 
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.call-link {
+    color: var(--primary-color); 
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    border: none; 
+    white-space: nowrap; 
+    display: flex; 
+    align-items: center;
+}
+
+.call-link i {
+    color: var(--secondary-color); 
+    margin-right: 5px;
+}
+
+.call-link:hover {
+    color: var(--blue-700); 
+    background-color: #f0f4f8; 
+}
+
+/* Estilo de la Barra Azul (NAVEGACIÓN) */
+.allies-bar {
+    width: 100%;
+    background-color: var(--primary-color); 
+    padding: 0; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    position: sticky;
+    top: var(--header-height); 
+    display: block; 
+}
+
+/* ========================================================= */
+/* === AJUSTE DE MENÚ HAMBURGUESA (RESPONSIVE) - CORRECCIÓN FINAL === */
+/* ========================================================= */
+
+/* ========================================================= */
+/* === AJUSTE DE MENÚ HAMBURGUESA (RESPONSIVE) - ANULACIÓN FINAL === */
+/* ========================================================= */
+
+@media (max-width: 1024px) {
+    
+    /* 1. MOSTRAR EL BOTÓN DE HAMBURGUESA */
+    .main-header #hamburgerBtn {
+        display: flex;
+        z-index: 1001 !important; /* Aseguramos que esté arriba */
+        font-size: 1.5rem;
+        color: var(--primary-color); 
+        margin-left: 10px;
+    }
+    
+/* Barra azul visible en escritorio y móvil */
+.allies-bar {
+    display: block; 
+    width: 100%;
+    background-color: var(--primary-color); 
+    padding: 0; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    position: sticky;
+    top: var(--header-height); 
+}
+
+/* Menú móvil deslizable */
+.allies-bar .main-nav {
+    position: fixed;
+    top: 0; 
+    right: -100%; /* fuera de pantalla al inicio */
+    width: 80%; 
+    max-width: 300px;
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: right 0.4s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+/* Estado abierto */
+.allies-bar .main-nav.is-open {
+    right: 0; 
+}
+
+    /* 5. CORRECCIÓN CLAVE: Estilos de la Lista de Enlaces (Máxima Especificidad) */
+    .allies-bar .main-nav ul {
+        /* Forzamos la estructura vertical y la anulación de márgenes */
+        display: flex !important;
+        flex-direction: column !important; 
+        justify-content: flex-start !important; 
+        
+        padding: 80px 20px 20px 20px !important; 
+        margin: 0 !important; 
+        
+        list-style: none !important;
+        height: auto !important;
+        width: 100% !important;
+        overflow: visible !important; /* Muy importante si algo lo estaba ocultando */
+    }
+    
+    .allies-bar .main-nav li {
+        /* Anulamos cualquier display: inline-block de escritorio */
+        display: block !important; 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; 
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important; 
+    }
+    
+    .allies-bar .main-nav a {
+        /* Forzamos el display: block en el enlace mismo */
+        display: block !important; 
+        padding: 15px 0 !important; 
+        font-weight: 600 !important;
+        font-size: 1.1rem !important;
+        color: #fff !important;
+        text-align: left !important;
+    }
+
+    .allies-bar .main-nav a:hover {
+        color: var(--secondary-color) !important;
+        background-color: transparent !important; 
+        transform: none !important; 
+    }
+    
+    /* Ocultamos el menú de redes sociales en mobile */
+    .social-dropdown {
+        display: none !important;
+    }
+    
+    /* 6. Ajuste del Call to Action (CTA) */
+    .header-actions {
+        gap: 10px; 
+    }
+    .quote-header-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    .call-link {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+}
+
+/* ========================================================= */
+/* === AJUSTES DE LA BARRA AZUL (Navegación + Redes) - ESCRITORIO === */
+/* ========================================================= */
+
+.allies-bar-content {
+    max-width: var(--container-max-width); 
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; 
+    align-items: stretch;
+    width: 100%;
+    padding: 0 15px; 
+}
+
+/* NAVEGACIÓN EN LA BARRA AZUL */
+.main-nav {
+    flex-grow: 1; 
+    text-align: center;
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center; 
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%; 
+}
+
+.main-nav ul li {
+    flex-shrink: 0; 
+}
+
+.main-nav ul li a {
+    color: white; 
+    padding: 12px 40px; 
+    display: block;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif; 
+    transition: color 0.3s ease, transform 0.3s ease; 
+    white-space: nowrap; 
+}
+
+.main-nav ul li a:hover {
+    color: var(--secondary-color); 
+    transform: scale(1.05);
+    background-color: transparent; 
+}
+
+/* Redes Sociales se quedan en el extremo derecho */
+.social-dropdown {
+    position: relative; 
+    display: flex; 
+    align-items: center;
+    margin-left: 20px; 
+    flex-shrink: 0; 
+}
+
+/* --- ESTILOS DEL MENÚ DESPLEGABLE DE REDES SOCIALES (Azul) --- */
+
+.social-toggle {
+    background: none;
+    border: none; 
+    color: white; 
+    font-size: 1rem;
+    font-weight: 500; 
+    padding: 10px 10px; 
+    cursor: pointer;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0; 
+}
+
+.social-toggle:hover {
+    background-color: transparent;
+    color: var(--secondary-color);
+}
+
+.social-menu {
+    position: absolute;
+    top: calc(100% + 5px); 
+    right: 0;
+    min-width: 150px;
+    background-color: white; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000;
+    padding: 5px 0;
+    visibility: hidden;
+    opacity: 0; 
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s 0.3s;
+}
+
+.social-menu.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s; 
+    display: flex;
+    flex-direction: column;
+}
+
+.social-menu a {
+    padding: 8px 15px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s;
+}
+
+.social-menu a:hover {
+    background-color: #e6e6e6;
+    color: var(--primary-color);
+}
+
+
+/* ========================================================= */
+/* === 3. HERO SECTION (Final: Altura Completa y Texto Arriba) === */
+/* ========================================================= */
+
+#hero {
+    position: relative;
+    
+    /* ALTURA COMPLETA: Ocupa toda la ventana disponible */
+    height: 100vh; 
+    
+    display: flex;
+    /* ALINEACIÓN VERTICAL: Empuja el bloque de texto hacia la parte superior */
+    align-items: flex-start; 
+    /* ALINEACIÓN HORIZONTAL: Pega el contenido al lado izquierdo */
+    justify-content: flex-start; 
+    
+    color: #fff;
+    overflow: hidden;
+    margin-top: 0; 
+    
+    /* Padding horizontal para despegar el contenido de los bordes. */
+    padding: 0 5%; 
+}
+#hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* REEMPLAZA ESTA URL con la de la imagen final que elegiste */
+    background: url('nvo fondo.png') center/cover no-repeat;
+    filter: brightness(0.32); /* Overlay oscuro para alto contraste */
+    z-index: 0;
+}
+
+/* CONTENEDOR DEL TEXTO */
+#hero-content {
+    position: relative;
+    z-index: 1;
+    
+    /* Ancho máximo para la columna de texto de la izquierda */
+    max-width: 650px; 
+    text-align: left; 
+    
+    margin-right: auto; 
+    margin-left: 0; 
+    
+    /* COMPENSACIÓN: Padding superior para posicionar el texto debajo del header fijo.
+       Asegúrate de que 'var(--header-height)' y '40px' sumen la altura de tus dos barras superiores. */
+    padding-top: calc(var(--header-height) + 0px); 
+    
+    color: #fff;
+}
+#hero-content h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+#hero-content p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    text-align: left; 
+}
+#hero-promise {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    text-align: left;
+}
+#hero-content a, .hero-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    /* Usando el color de acento para el CTA */
+    background: var(--secondary-color); 
+    color: var(--primary-color); 
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform .3s ease, background .3s ease;
+}
+#hero-content a:hover, .hero-btn:hover {
+    transform: scale(1.05);
+    background: var(--secondary-color-dark);
+    cursor: pointer;
+}
+
+@media (min-width: 1400px) {
+    
+    #hero-content {
+        /* 2. Limita el ancho del texto para una mejor lectura */
+        max-width: 600px;
+        
+        /* 3. Posiciona el bloque de texto con un margen amplio para centrarlo visualmente */
+        margin-left: 15%; 
+        margin-right: auto;
+        
+        /* 4. Mantiene el texto alineado a la izquierda */
+        text-align: left;
+    }
+}
+
+@media (min-width: 1600px) {
+  #hero {
+    align-items: center; /* centra verticalmente */
+  }
+
+  #hero-content {
+    padding-top: 0; /* quita el empuje superior */
+    margin-left: 12%; /* mantiene alineado a la izquierda como en laptop */
+    max-width: 700px; /* un poco más ancho para monitores grandes */
+  }
+
+  #hero-content h1 {
+    font-size: 4rem; /* mejora la proporción en pantallas grandes */
+  }
+
+  #hero-content p {
+    font-size: 1.25rem;
+  }
+}
+
+
+/* ========================================================= */
+/* === 4. MODALES (COTIZADOR / PRIVACIDAD) - BASE === */
+/* ========================================================= */
+
+#quoteModal, #privacyModal {
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+display: flex;
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.55);
+justify-content: center;
+align-items: center;
+z-index: 9999;
+padding: 20px;
+font-family: 'Montserrat', sans-serif;
+font-size: 0.95rem;
+line-height: 1.6;
+}
+#quoteModal.is-open, #privacyModal.is-open {
+opacity: 1;
+visibility: visible;
+}
+
+/* Base Común del Contenido del Modal */
+.modal-content {
+background: #fff;
+border-radius: 10px; /* Un poco menos para un look más moderno */
+width: 100%;
+max-width: 720px; /* Manteniendo tu max-width para privacidad */
+max-height: 90vh;
+overflow: auto;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Sombra mejorada */
+position: relative;
+transform: translateY(20px);
+transition: transform 0.3s ease-out;
+    padding: 0; /* Eliminamos el padding aquí para controlarlo por secciones */
+}
+#quoteModal.is-open .modal-content, #privacyModal.is-open .modal-content {
+transform: translateY(0);
+}
+
+
+/* ========================================================= */
+/* === ESTILOS ESPECÍFICOS PARA EL MODAL DE COTIZACIÓN === */
+/* ========================================================= */
+
+#quoteModal .modal-content {
+max-width: 480px; /* Ancho más compacto para el formulario */
+}
+
+/* 1. CABECERA AZUL Y LÍNEA AMARILLA (H2 y Cerrar) */
+
+#quoteModal #quoteTitle {
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 1.6rem; 
+    font-weight: 700;
+    margin: 0; 
+    /* Damos 20px de padding abajo para separar el texto de la línea de 2px */
+    padding: 20px 30px 20px 30px; 
+    position: relative;
+    padding-right: 70px;
+    box-shadow: none;
+}
+
+/* Línea amarilla debajo del título */
+#quoteModal #quoteTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    
+    /* Propiedades clave: 100% de ancho y solo 2px de altura */
+    width: 100%; 
+    height: 2px;
+    
+    background-color: var(--secondary-color);
+    border-radius: 0; 
+}
+
+/* Botón de cerrar (la 'x') - Posicionado de forma absoluta en la cabecera */
+#quoteModal #closeModal {
+    position: absolute;
+    top: 15px; 
+    right: 20px; 
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1; 
+    color: #fff; /* La 'x' en blanco */
+    transition: color 0.2s;
+    z-index: 10; /* Aseguramos que esté por encima del título */
+}
+#quoteModal #closeModal:hover {
+    color: var(--secondary-color); /* 'x' amarilla en hover */
+}
+
+
+/* 2. CUERPO DEL MODAL (Nota y Formulario) */
+
+/* Texto de nota */
+#quoteModal .quote-note { 
+    font-size: 1rem;
+    color: #555;
+    margin: 30px 30px 25px 30px; /* Padding interior del cuerpo */
+    line-height: 1.5;
+}
+
+/* Formulario */
+#quoteModal #quoteForm {
+    padding: 0 30px 30px 30px; /* Padding del formulario (solo a los lados y abajo) */
+    display: grid;
+    gap: 15px; /* Espacio entre los campos */
+}
+
+/* Estilo de los labels */
+#quoteModal #quoteForm label {
+    font-size: 0.95rem;
+    color: var(--primary-color); 
+    margin-bottom: 5px;
+    display: block; 
+    font-weight: 600;
+}
+#quoteModal #quoteForm label strong {
+    font-weight: inherit;
+}
+
+
+/* 3. CAMPOS DE ENTRADA (Input y Select) */
+
+#quoteModal #quoteForm input:not([type="checkbox"]),
+#quoteModal #quoteForm select,
+#quoteModal #quoteForm textarea {
+    width: 100%;
+    box-sizing: border-box; 
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 12px 15px;
+    margin-top: 0; /* Reseteamos tu margen original de 6px */
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#quoteModal #quoteForm input:focus,
+#quoteModal #quoteForm select:focus {
+    border-color: var(--secondary-color); 
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.4); 
+    outline: none;
+}
+
+
+/* 4. CHECKBOX DE PRIVACIDAD (Alineación y Estilo) */
+
+#quoteModal form > label:last-of-type { /* Selecciona el label del checkbox */
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: normal; 
+    gap: 6px; /* Mantenemos tu gap */
+}
+
+#quoteModal form > label:last-of-type #privacyCheck {
+    width: 18px; 
+    height: 18px;
+    margin: 0; /* Reseteamos el margen para que el flex lo controle */
+}
+
+#quoteModal form > label:last-of-type .highlight {
+    font-weight: 600; 
+    color: #333;
+}
+
+#quoteModal form > label:last-of-type #privacyLink {
+    color: var(--primary-color) !important; 
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+
+/* 5. BOTÓN DE ENVIAR */
+
+#quoteModal button[type="submit"] {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 100%; 
+    margin-top: 25px; /* Más espacio sobre el botón */
+    font-size: 1.1rem;
+}
+
+#quoteModal button[type="submit"]:hover {
+    background-color: #ffd633;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* MENSAJE DE ÉXITO */
+#quoteModal #quoteSuccess {
+    padding: 30px; 
+    color: var(--primary-color);
+}
+#quoteModal #quoteSuccess h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+#quoteModal #quoteSuccess p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* ========================================================= */
+/* === AJUSTE DE DISEÑO PARA EL MODAL DE PRIVACIDAD === */
+/* ========================================================= */
+
+/* Adaptamos el modal de privacidad a la nueva estructura del header */
+#privacyModal .modal-content {
+    max-width: 720px; /* Mantenemos el ancho grande para el texto */
+    padding: 0; /* Controlamos el padding por secciones */
+    overflow: hidden;
+}
+
+/* 1. ESTILOS DEL ENCABEZADO DE DISEÑO (Barra Azul) */
+#privacyModal .modal-header-design {
+    background-color: var(--primary-color);
+    position: relative;
+    /* Usamos el mismo padding que el cotizador */
+    padding: 20px 30px 20px 30px; 
+}
+
+/* Título de Privacidad (h2) */
+#privacyModal #privacyTitle {
+    color: #fff;
+    font-size: 1.6rem; 
+    font-weight: 700;
+    margin: 0; 
+    padding: 0; 
+    position: relative;
+    padding-right: 40px; 
+}
+
+/* Línea amarilla (Larga y Delgada) debajo del título de Privacidad */
+#privacyModal #privacyTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Posición justo en el borde inferior del contenedor */
+    left: 0; 
+    
+    width: 100%; 
+    height: 2px;
+    
+    background-color: var(--secondary-color);
+    border-radius: 0; 
+}
+
+
+/* Botón de cerrar (la 'x') del modal de privacidad */
+#closePrivacyModal {
+    position: absolute;
+    /* Ajustamos el top manualmente para que quede en el centro de la barra azul */
+    top: 25px; 
+    right: 20px; 
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1; 
+    color: #fff; 
+    transition: color 0.2s;
+    z-index: 10; 
+}
+
+#closePrivacyModal:hover {
+    color: var(--secondary-color); 
+}
+
+/* 2. ESTILOS DEL CUERPO (Donde está el texto de Aviso de Privacidad) */
+#privacyModal .privacy-body {
+    padding: 30px; /* Padding interior del contenido */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#privacyModal .privacy-body h4 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+#privacyModal .privacy-body ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+    #quoteModal .modal-content {
+        max-width: 95%; 
+    }
+    #quoteModal #quoteTitle {
+        font-size: 1.4rem;
+        padding-left: 20px;
+    }
+    #quoteModal #quoteTitle::after {
+        left: 20px;
+    }
+    #quoteModal #closeModal {
+        right: 10px;
+        top: 10px;
+    }
+    #quoteModal .quote-note,
+    #quoteModal #quoteForm {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* ========================================================= */
+/* === AJUSTE MÓVIL === */
+/* ========================================================= */
+@media (max-width: 768px) {
+    #hero {
+        /* En móvil, se mantiene la altura */
+        height: 100vh; 
+        /* En móvil, el centrado total es mejor */
+        justify-content: center; 
+        align-items: center; 
+        text-align: center;
+    }
+    #hero-content {
+        /* En móvil, el contenido debe ocupar más espacio y estar centrado */
+        max-width: 90%; 
+        margin: 0 auto;
+        text-align: center;
+        /* Quitamos el padding top de compensación en móvil */
+        padding-top: 0; 
+    }
+    #hero-content h1 {
+        font-size: 2.5rem;
+    }
+    #hero-content p, #hero-promise {
+        text-align: center;
+    }
+}
+
+/* ========================================================= */
+/* === 5. ABOUT SECTION (FINAL: Compactación Extrema) === */
+/* ========================================================= */
+#about {
+    /* FONDO DEGRADADO DE LUJO Y DRAMÁTICO */
+    background: linear-gradient(145deg, var(--blue-700) 10%, var(--dark-blue-800) 90%); 
+    
+    /* REDUCCIÓN CLAVE: Más compacto verticalmente */
+    padding: 60px 50px; 
+    position: relative; 
+    margin-top: 0;
+    overflow: hidden; 
+}
+
+/* --- CONTENEDOR PRINCIPAL (Altura Reducida) --- */
+.about-hero-container {
+    display: flex;
+    max-width: var(--container-max-width); /* Usamos la variable general si está definida, si no, usa 1000px */
+    margin: 0 auto;
+    align-items: center; 
+    gap: 50px; 
+    /* REDUCCIÓN CLAVE: Altura mínima para hacerlo más denso */
+    min-height: 450px; 
+}
+
+/* --- 1. COLUMNA DE TEXTO (Izquierda) --- */
+.about-hero-text {
+    flex: 1 1 60%; 
+    color: #fff; 
+    padding-right: 20px;
+}
+
+/* A. ETIQUETA PEQUEÑA */
+.about-hero-text .hero-label {
+    font-size: 0.9rem; 
+    font-weight: 700; 
+    letter-spacing: 2px;
+    color: var(--secondary-color);
+    margin-bottom: 2px; /* Espacio mínimo */
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+/* B. TITULAR GRANDE */
+.about-hero-text .hero-title {
+    font-size: 3.2rem; 
+    font-weight: 900; 
+    color: #fff;
+    line-height: 1.15;
+    margin-top: 0;
+    margin-bottom: 15px; /* Espaciado más compacto */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* C. SUBTÍTULO */
+.about-hero-text .hero-subtitle {
+    font-size: 1.5rem; 
+    font-weight: 300; 
+    color: var(--secondary-color);
+    line-height: 1.4;
+    margin-bottom: 20px; /* Espaciado más compacto */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* D. BLOQUE DE EXPERIENCIA (Texto Corto) */
+.about-hero-text .hero-text-content p {
+    font-size: 1.3rem; 
+    line-height: 1.6;
+    margin-bottom: 20px; /* Espaciado más compacto */
+    font-weight: 400; 
+    color: #e0e0e0; 
+}
+
+/* Contenido Oculto */
+.extra-info-toggle {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.extra-info-toggle.is-open {
+    max-height: 500px; 
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.extra-info-toggle p {
+    font-size: 1.1rem !important; 
+    color: rgba(255, 255, 255, 0.75) !important; 
+    font-weight: 300 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilo del Botón Toggle (Línea Fina) */
+.hero-toggle-button {
+    background-color: transparent; 
+    color: var(--secondary-color); 
+    font-weight: 700;
+    font-size: 1.1rem; 
+    padding: 10px 0;
+    border: none;
+    /* Línea Fina */
+    border-bottom: 1px solid var(--secondary-color); 
+    cursor: pointer;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    /* Margen más compacto */
+    margin-top: 10px; 
+    display: flex; 
+    align-items: center;
+    gap: 8px; 
+}
+.hero-toggle-button:hover {
+    color: #fff;
+    border-color: #fff;
+}
+.hero-toggle-button .toggle-icon {
+    transition: transform 0.4s ease;
+}
+
+/* RESALTADO DE TEXTO (Amarillo) */
+.about-hero-text .hero-text-content p span.highlight,
+.extra-info-toggle p span.highlight,
+.extra-info-toggle p a.highlight {
+    color: var(--secondary-color) !important; 
+    font-weight: 700;
+    /* Ajuste para que el enlace se vea clickeable */
+    text-decoration: underline; 
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+/* Hover específico para el enlace clickeable */
+.extra-info-toggle p a.highlight:hover {
+    color: #fff !important; 
+    text-decoration: none;
+}
+
+
+/* --- 2. COLUMNA DE FOTO (Derecha) --- */
+.about-hero-image {
+    flex: 0 0 40%; 
+    height: 100%;
+    /* Posicionamiento para bajar la imagen sin afectar el tamaño del contenedor */
+    position: relative;
+    top: 65px; 
+    transform: none; 
+    margin: 0; 
+}
+
+.about-hero-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
+}
+
+/* === Responsive Hero: Móvil === */
+@media (max-width: 992px) {
+    /* La posición relativa y top 65px deben resetearse en móvil */
+    .about-hero-image {
+        top: 0; /* Resetear en móvil */
+    }
+    
+    #about {
+        padding: 40px 20px;
+    }
+    .about-hero-container {
+        min-height: auto;
+        flex-direction: column;
+        gap: 30px;
+    }
+    .about-hero-image {
+        order: 1;
+        width: 70%;
+        max-width: 300px; 
+        margin: 0 auto;
+        transform: none;
+    }
+    .about-hero-text {
+        order: 2;
+        text-align: center;
+    }
+    .about-hero-text .hero-title {
+        font-size: 2.5rem;
+    }
+    .about-hero-text .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    .about-hero-text .hero-text-content p {
+        font-size: 1.2rem;
+        text-align: left;
+        padding: 0 10px;
+    }
+    .hero-toggle-button {
+        margin: 20px auto 0 auto;
+    }
+}
+
+:root {
+    --primary-color: #003366; /* Azul Oscuro Corporativo */
+    --secondary-color: #ffcc00; /* Amarillo de Acento */
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Fondo general de la página */
+    color: var(--primary-color);
+}
+
+:root {
+    --primary-color: #0A3A5E; /* Azul Oscuro Corporativo (Más suave que el anterior) */
+    --secondary-color: #ffcc00; /* Amarillo de Acento */
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Fondo general de la página */
+    color: var(--primary-color);
+}
+
+:root {
+    --primary-color: #0A3A5E; /* Azul Oscuro Corporativo (Más suave que el anterior) */
+    --secondary-color: #ffcc00; /* Amarillo de Acento */
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Fondo general de la página */
+    color: var(--primary-color);
+}
+
+ /* 6. SERVICIOS Y CARRUSEL */
+        #services {
+            background-color: transparent; 
+            margin: 60px 0; 
+            padding: 30px 0; 
+            position: relative; 
+            z-index: 1; 
+        }
+
+        /* Pseudo-elemento para crear el fondo dividido (Mitad superior azul) */
+        #services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%; 
+            background-color: var(--primary-color); /* Azul oscuro corporativo */
+            z-index: -1; 
+            border-bottom-left-radius: 15px; 
+            border-bottom-right-radius: 15px;
+        }
+
+        /* Título de la sección */
+        #services h2 {
+            max-width: 1200px;
+            margin: 0 auto; 
+            color: #ffffff; 
+            text-align: left; 
+            margin-bottom: 35px; 
+            font-size: 1.8rem; 
+            font-weight: 600; 
+            position: relative; 
+            display: block; 
+            padding-bottom: 10px;
+            padding-left: 20px; 
+            padding-right: 20px;
+        }
+
+        /* Línea amarilla del título */
+        #services h2::after {
+            content: '';
+            position: absolute;
+            width: calc(100% - 40px); 
+            height: 3px; 
+            background: var(--secondary-color);
+            border-radius: 1px;
+            left: 20px; 
+            bottom: 0;
+        }
+
+        /* Tabs (Pestañas) */
+        .tabs-control {
+            display: flex;
+            justify-content: flex-start;
+            gap: 35px; 
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            padding-left: 20px; 
+            padding-right: 20px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #ffffff; 
+            border: none;
+            padding: 10px 0;
+            border-radius: 0; 
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.25rem; 
+            transition: all 0.25s ease-in-out; 
+            opacity: 0.7; 
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .tab-btn.active {
+            color: #fff; 
+            opacity: 1;
+            font-weight: 800;
+            border-bottom: 4px solid var(--secondary-color); 
+            padding-bottom: 6px; 
+        }
+
+        /* Carrusel base */
+        .services-carousel {
+            position: relative;
+            overflow: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .services-track {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s ease;
+            width: 100%; 
+        }
+
+        /* Service Box base (Cajas Claras y Profesionales) */
+.service-box {
+    background: #ffffff; 
+    color: var(--primary-color); 
+    padding: 24px; 
+    border-radius: 8px; 
+    border: 1px solid #e0e0e0; 
+    border-left: 5px solid var(--secondary-color); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;
+    position: relative;
+
+    /* Flex centrado vertical y horizontal */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* CENTRADO VERTICAL */
+    align-items: center; 
+    text-align: center; 
+
+    min-height: 240px; /* TAMAÑO MÁS PEQUEÑO Y CHAPARRITO */
+    transition: all .35s cubic-bezier(.2, .9, .2, 1), transform .25s, min-height 0.5s ease-out; /* Agregada transición de altura */
+
+    /* La clave para 3 por fila en desktop */
+    flex: 0 0 calc((100% - 40px) / 3); /* 40px = 2x gap(20px) */
+
+    /* Patrón de fondo sutil (puntos muy claros) */
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 51, 102, 0.03), 
+        rgba(0, 51, 102, 0.03) 1px,
+        #ffffff 1px,
+        #ffffff 10px
+    );
+    background-size: 10px 10px;
+}
+
+        /* Estilo para iconos */
+        .service-icon {
+            margin-bottom: 10px; 
+            padding: 10px;
+            font-size: 3rem; 
+            color: #0056b3; 
+            transition: all 0.25s ease-out;
+            line-height: 1;
+        }
+
+        .service-box:hover .service-icon {
+            color: var(--secondary-color); 
+            transform: scale(1.1); 
+        }
+
+        /* Título de servicio */
+        .service-box p.title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; 
+            font-size: 1.4rem; 
+            margin-top: 0; 
+            margin-bottom: 5px; 
+            color: var(--primary-color); 
+            transition: all 0.25s ease-out; 
+            text-align: center;
+        }
+
+        /* Estilo para la descripción corta (visible por defecto) */
+        .service-box p.description-short { 
+            display: block; 
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #666; 
+            margin-bottom: 15px; 
+            padding: 0 10px;
+        }
+
+        /* Estilo para el detalle (oculto por defecto) */
+ .service-detail {
+    max-height: 0; /* Oculto por defecto */
+    overflow: hidden;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    width: 100%;
+    padding-top: 0; /* Sin padding antes de abrir */
+ }
+
+
+        /* EFECTO HOVER: Elevación y título amarillo */
+        .service-box:hover {
+            background: #ffffff; 
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(0, 51, 102, 0.06), 
+                rgba(0, 51, 102, 0.06) 1px,
+                #ffffff 1px,
+                #ffffff 10px
+            );
+            background-size: 10px 10px;
+            
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 
+                        0 0 0 2px var(--secondary-color); 
+            transform: translateY(-8px); 
+        }
+
+        .service-box:hover p.title {
+            color: var(--secondary-color); 
+            letter-spacing: 0.5px;
+        }
+
+        /* --- ESTILO DE EXPANSIÓN (AL HACER CLIC) --- */
+        .service-box.is-expanded { 
+            background: var(--primary-color); /* Fondo azul para el expandido */
+            color: #fff;
+            min-height: 380px; /* Aumenta la altura para la expansión vertical */
+            padding: 30px; 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid #334e68; 
+            border-left: 5px solid var(--secondary-color); 
+            /* Se mantiene el 1/3 del ancho */
+            flex: 0 0 calc((100% - 40px) / 3); 
+        }
+        .service-box.is-expanded p.title { 
+            color: var(--secondary-color); 
+        }
+        .service-box.is-expanded .service-detail { 
+            max-height: 1000px; /* Muestra el detalle */
+            opacity: 1;
+            transform: translateY(0);
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 400;
+            color: #e0e0e0;
+           transform: scaleY(1);
+ }
+
+        .service-box.is-expanded p.description-short {
+            display: none; /* Oculta la descripción corta cuando se expande */
+        }
+        /* Oculta icono en expansión */
+        .service-box.is-expanded .service-icon {
+            display: none;
+        }
+
+
+        /* Botones de carrusel */
+        .carousel-btn { 
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--secondary-color); 
+            color: var(--primary-color); 
+            border: none;
+            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s, background 0.2s;
+        }
+        .carousel-btn:hover {
+            opacity: 1;
+            background: #ffd633; 
+        }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .service-box {
+                flex: 0 0 calc((100% - 20px) / 2); /* 2 por fila en tablet */
+                min-height: 240px; /* Mantiene la altura compacta */
+            }
+            .service-box.is-expanded { 
+                min-height: 400px; 
+            }
+        }
+/* ========================================================= */
+/* === AJUSTE DE EXPANSIÓN Y RESPONSIVO (CORREGIDO) === */
+/* ========================================================= */
+
+/* El estilo de EXPANSIÓN principal necesita ser modificado: */
+.service-box.is-expanded { 
+    background: var(--primary-color); 
+    color: #fff;
+    min-height: 380px; 
+    padding: 30px; 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid #334e68; 
+    border-left: 5px solid var(--secondary-color); 
+    
+    /* MODIFICACIÓN CLAVE (PARA ESCRITORIO): 
+       Cuando está expandida, ¡ocupa el 100% del ancho! 
+       La transición a 100% es lo que causa el efecto. 
+       Si quieres que se quede en 1/3, déjalo, pero lo más común es que ocupe todo al expandirse.
+    */
+    /* Dejamos el 1/3 en desktop, y lo corregimos en móvil */
+    flex: 0 0 calc((100% - 40px) / 3); /* Mantenemos 1/3 en desktop */
+}
+
+/* Bloque RESPONSIVO CORREGIDO */
+@media (max-width: 768px) {
+    .service-box {
+        /* Ocupa el 100% del contenedor para evitar el efecto de lado a lado */
+        flex: 0 0 100%; 
+        min-height: 220px;
+        /* IMPORTANTE: Desactivar la transformación de la tarjeta al expandirse para que no se salga */
+        transform: none !important; 
+    }
+    
+    .tabs-control {
+        justify-content: center;
+    }
+    
+    /* CORRECCIÓN CRUCIAL: La tarjeta expandida debe ocupar el 100% */
+    .service-box.is-expanded { 
+        min-height: 380px; 
+        /* CLAVE: Anulamos el 1/3 y forzamos el 100% en móvil */
+        flex: 0 0 100% !important; 
+    }
+}
+
+/* =====================================
+   SECCIÓN DE ALIADOS (CORREGIDA Y UNIFORME CON SERVICIOS)
+===================================== */
+.allies-section {
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+    margin: 60px 0;
+    padding: 0 0 70px 0;
+    overflow: hidden;
+}
+
+/* === CABECERA AZUL CON TÍTULO === */
+.allies-header-bar {
+    position: relative;
+    background-color: var(--primary-color);
+    padding: 30px 0 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px;
+    padding-bottom: 20px; 
+}
+
+/* --- Título de la sección (idéntico a servicios) --- */
+.allies-header-bar h2 {
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #ffffff;
+    text-align: left;
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Línea amarilla bajo el título */
+.allies-header-bar h2::after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 40px);
+    height: 3px;
+    background: var(--secondary-color);
+    border-radius: 1px;
+    left: 20px;
+    bottom: 0;
+}
+
+/* === PESTAÑAS (AHORA IGUALES A SERVICIOS) === */
+.allies-tab-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 35px;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    padding: 15px 20px 0 20px;
+    border-bottom: none;
+}
+
+.allies-tab-btn {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    padding: 10px 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    opacity: 0.7;
+    position: relative;
+    transition: all 0.25s ease-in-out;
+}
+
+.allies-tab-btn.active {
+    color: #fff;
+    opacity: 1;
+    font-weight: 800;
+    border-bottom: 4px solid var(--secondary-color);
+    padding-bottom: 6px;
+}
+
+/* === CONTENEDOR BLANCO DE LOGOS === */
+.allies-logos-container {
+    background-color: var(--background-white);
+    padding: 40px 0;
+    width: 100%;
+    margin-top: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 0 0 10px 10px;
+}
+
+/* === CONTENIDO DE CADA PESTAÑA === */
+.allies-tab-content {
+    display: none;
+}
+
+.allies-tab-content.active-content {
+    display: block;
+}
+
+/* === CARRUSEL DE LOGOS === */
+.logo-carousel-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.logos-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.logo-carousel {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Para centrar las afianzadoras */
+.logo-carousel.center-content {
+    justify-content: center;
+}
+
+.logo-track {
+    display: flex;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.logo-box {
+    flex: 0 0 auto;
+    width: 140px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    margin: 0 25px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-box img {
+    max-width: 100%;
+    max-height: 80%;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.5);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.logo-box:hover img {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.08);
+}
+
+/* === FLECHAS === */
+.arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0.95;
+    transition: opacity 0.2s, background 0.2s, transform 0.3s;
+}
+
+.arrow-btn:hover {
+    opacity: 1;
+    background: #ffd633;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.prev-logo-btn {
+    left: 0;
+}
+.next-logo-btn {
+    right: 0;
+}
+
+.arrow-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.8);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+/* === CENTRADO PARA AFIANZADORAS === */
+.allies-tab-content.active-content .logo-carousel.center-content .logo-track {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 768px) {
+    .arrow-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1.3rem;
+    }
+
+    .allies-header-bar h2 {
+        font-size: 1.6rem;
+    }
+
+    .allies-tab-container {
+        justify-content: center;
+    }
+}
+
+/* =====================================
+   SECCIÓN DE LOCACIÓN (CORREGIDO FINAL)
+===================================== */
+.location-section {
+background-color: var(--background-light, #f4f6f9);
+padding: 80px 20px;
+}
+
+.location-section .container-center {
+max-width: 1200px;
+margin: 0 auto;
+}
+
+/* CABECERA AZUL - Mantenemos tu estilo y forma */
+.location-header-bar {
+position: relative;
+background-color: var(--primary-color);
+width: 99vw;
+left: 50%;
+transform: translateX(-50%);
+    /* Padding reducido para hacerlo más 'chaparrín' */
+padding: 20px 0 15px 0; 
+margin-bottom: 20px;
+border-radius: 0 0 15px 15px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Título ajustado para alineación y simetría */
+.location-header-bar h2 {
+    max-width: 1200px;
+    margin: 0 auto; /* Centra el bloque de 1200px */
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+    text-align: left;
+    
+    /* Alinear con el contenido interno de la sección de aliados (20px) */
+    padding-left: 20px; 
+    padding-right: 20px;
+}
+
+/* Línea amarilla ajustada (corta a la derecha) */
+.location-header-bar h2::after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 40px); /* igual que la de Allies */
+    height: 3px;
+    background: var(--secondary-color);
+    border-radius: 1px;
+    left: 20px; /* igual que la de Allies */
+    bottom: 0;
+}
+
+/* Subtítulo */
+.location-section .subtitle {
+font-size: 1.15rem;
+color: #555;
+text-align: center;
+margin-bottom: 40px;
+}
+
+/* === DISTRIBUCIÓN EN COLUMNAS (TARJETA + MAPA) === */
+.location-content {
+display: flex;
+align-items: stretch; /* CLAVE: Para que el mapa tome la altura de la tarjeta */
+gap: 40px;
+max-width: 1100px; 
+margin: 0 auto;
+padding: 0 20px;
+}
+
+/* === BLOQUE DE INFORMACIÓN (TARJETA BLANCA Y FLOTANTE) === */
+.office-info {
+    /* Estilo de tarjeta */
+background-color: #fff; 
+border-radius: 10px; 
+padding: 30px; 
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra para efecto flotante (gris) */
+    
+    /* Configuración de Flexbox para la columna izquierda */
+flex-grow: 0;
+flex-shrink: 0;
+flex-basis: 400px; /* Ancho fijo para la tarjeta */
+margin: 0; /* Quitado el auto margin para que Flexbox lo maneje */
+width: auto; 
+    
+    /* *********** SOLUCIÓN DE CUADROS AMARILLOS *********** */
+    /* Asegura que no haya bordes fantasmas amarillos */
+    border: 1px solid transparent; 
+}
+
+/* Contenidos internos de la tarjeta */
+.office-info h2 {
+font-size: 1.5rem;
+color: var(--primary-color);
+font-weight: 600;
+margin-top: 20px;
+margin-bottom: 15px;
+}
+
+.office-info .info-item {
+display: flex;
+align-items: flex-start;
+margin-bottom: 15px;
+}
+
+.office-info .info-item i {
+font-size: 1.2rem;
+color: var(--primary-color);
+margin-right: 15px;
+width: 20px;
+text-align: center;
+margin-top: 3px; 
+}
+
+.office-info .info-item p {
+margin: 0;
+color: #555;
+line-height: 1.5;
+}
+
+/* BOTÓN dentro de la tarjeta */
+.office-info .btn-yellow {
+width: 100%;
+text-align: center;
+box-sizing: border-box; 
+margin-top: 30px;
+border: none; /* Previene cuadros amarillos */
+box-shadow: none;
+}
+
+/* === MAPA === */
+.map-container {
+flex-grow: 1; /* El mapa ocupa el espacio restante */
+flex-shrink: 1;
+flex-basis: 50%;
+height: auto; /* CLAVE: La altura la define el 'align-items: stretch' del padre */
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra igual a la tarjeta */
+border-radius: 10px;
+overflow: hidden;
+}
+
+.map-container iframe {
+width: 100%;
+height: 100%;
+border: 0;
+}
+
+/* BOTÓN dentro de la tarjeta - RESTAURANDO COLOR Y ESTILO */
+.office-info .btn-yellow {
+    /* Restauramos el estilo original del botón amarillo */
+display: inline-block;
+background-color: var(--secondary-color); /* CLAVE: Fondo amarillo */
+color: var(--primary-color); /* Texto azul */
+font-weight: 700;
+text-decoration: none;
+padding: 12px 25px;
+border-radius: 8px;
+    
+    /* Ajustes para el diseño de la tarjeta */
+width: 100%;
+text-align: center;
+box-sizing: border-box; 
+margin-top: 30px;
+    
+    /* Aseguramos que no haya bordes/sombras fantasmas */
+border: none; 
+box-shadow: none; 
+transition: background-color 0.3s, transform 0.3s; /* Mantenemos la transición */
+}
+
+/* También restauramos el estilo hover */
+.office-info .btn-yellow:hover {
+background-color: #ffd633; /* Color amarillo más claro en hover */
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- ESTILO DE LÍNEA AMARILLA PARA SUBTÍTULOS DENTRO DE LA TARJETA (.office-info) --- */
+
+.office-info h2 {
+    /* Nos aseguramos de que el h2 sea un contenedor para el pseudo-elemento */
+    position: relative;
+    
+    /* Agregamos espacio en la parte inferior para que la línea no pegue con el texto de abajo */
+    padding-bottom: 5px; 
+    margin-bottom: 15px; /* Ajustamos el margen para compensar el padding */
+}
+
+.office-info h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Coloca la línea en la parte inferior del h2 */
+    left: 0; /* Alinea la línea al inicio del texto */
+    
+    /* *********** TAMAÑO Y COLOR DE LA LÍNEA *********** */
+    width: 80px; /* Ancho de la línea (AJUSTA ESTE VALOR: 60px, 100px, etc.) */
+    height: 3px;
+    background-color: var(--secondary-color); /* Color amarillo */
+    border-radius: 1px;
+}
+
+/* --- CORRECCIÓN: HACER LA LÍNEA DEL PRIMER H2 MÁS GRANDE --- */
+.office-info h2:first-of-type::after {
+    /* *********** AUMENTA EL ANCHO AQUÍ *********** */
+    width: 180px; /* Aumenta este valor (ej: 100px, 150px) para hacerla más larga */
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 900px) {
+.location-content {
+flex-direction: column;
+gap: 20px;
+}
+    
+.office-info {
+flex-basis: auto; 
+width: 100%; 
+max-width: 100%; 
+    }
+    
+    .map-container {
+width: 100%;
+height: 350px;
+border: -1;
+}
+    /* Ajuste responsivo del título para centrar en móvil */
+    .location-header-bar h2 {
+    text-align: center;
+    padding: 0 20px 10px 20px; /* mantiene el mismo espacio lateral que las demás */
+  }
+  
+  .location-header-bar h2::after {
+    width: calc(100% - 40px); /* igual que las demás líneas */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* 8. CONTACTO Y FOOTER */
+#contact-highlight {
+    background: linear-gradient(135deg, #005aab, #004d99);  
+    color: #fff;
+    padding: 10px 5px;
+    text-align: center;
+    border-radius: 25px;
+    margin: 60px auto;
+    max-width: 900px;
+    box-shadow: 0 20px 60px rgba(0, 51, 102, 0.25);
+    overflow: hidden;
+}
+
+#contact-highlight:hover {
+    box-shadow: 0 15px 35px rgba(0, 51, 102, 0.25);
+    transform: translateY(-5px);
+}
+
+.contact-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.contact-details {
+    flex: 1;
+    text-align: center;
+}
+
+.contact-image-placeholder {
+    flex-shrink: 0;
+    width: 250px;
+    border-radius: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+.contact-image-placeholder img {
+    width: 100%;
+    height: auto;
+    transform-origin: top center;
+    transform: scale(1.0) translateY(20px);
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4));
+}
+
+.contact-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.0rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0px;
+    margin-top: 0;
+    letter-spacing: -0.05em;
+}
+.contact-line-2 {
+    margin-top: -5px;
+}
+
+.contact-action-emphasis {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: var(--secondary-color, #FFC107);
+    line-height: 1.1;
+    margin-bottom: 5px;
+    display: block;
+    letter-spacing: 0.05em;
+}
+.agent-name-highlight {
+    font-size: 1.1rem;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    font-weight: 700;
+}
+.cta-subtitle {
+    font-size: 1.0rem;
+    line-height: 1.5;
+    margin-bottom: 45px;
+    font-weight: 500;
+}
+
+.contact-details p:not(.agent-name-highlight):not(.social-text) {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 30px;
+}
+.social-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    margin-top: 25px;
+}
+
+.contact-links-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+.main-contact-link-v2, .secondary-contact-link-v2 {
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-contact-link-v2 i, .secondary-contact-link-v2 i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.main-contact-link-v2 {
+    background-color: var(--secondary-color, #FFC107);
+    color: var(--blue-700, #002147);
+    border: 2px solid var(--secondary-color, #FFC107);
+}
+.main-contact-link-v2:hover {
+    background-color: var(--secondary-dark, #FFA000);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.secondary-contact-link-v2 {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+.secondary-contact-link-v2:hover {
+    background-color: #fff;
+    color: var(--blue-700, #002147);
+    transform: translateY(-2px);
+}
+
+.contact-icons-v2 {
+    display: flex;
+    justify-content: flex-start;
+}
+.contact-icons-v2 a {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0 10px;
+    transition: all .2s ease-in-out;
+}
+.contact-icons-v2 a:hover {
+    color: var(--secondary-color, #FFC107);
+    transform: translateY(-2px) scale(1.1);
+}
+
+/* RESPONSIVE: Dos columnas en pantallas grandes */
+@media (min-width: 769px) {
+    .contact-content-wrapper {
+        flex-direction: row;
+        justify-content: center;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .contact-details {
+        text-align: left;
+        margin-left: -15px;
+        max-width: 55%;
+        flex: 1;
+    }
+
+    .contact-links-group {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+        justify-content: flex-start;
+    }
+
+    .main-contact-link-v2, .secondary-contact-link-v2 {
+        display: inline-flex;
+        margin: 0;
+    }
+
+    .contact-icons-v2 {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+    }
+
+    .contact-image-placeholder {
+        width: 350px;
+        margin-left: 30px;
+    }
+    .contact-image-placeholder img {
+        margin-left: 0;
+    }
+}
+
+/* =====================================
+   PIE DE PÁGINA (FOOTER)
+===================================== */
+.main-footer {
+    background-color: var(--primary-color); /* Fondo azul corporativo */
+    color: #fff;
+    padding-top: 50px;
+    font-size: 0.95rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px 20px; /* Margen inferior para separar del copyright */
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1; /* Distribuye el espacio entre las columnas */
+    min-width: 150px; /* Ancho mínimo para evitar que se aplasten */
+}
+
+.footer-col h4 {
+    font-size: 1.1rem;
+    color: var(--secondary-color); /* Títulos amarillos */
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col a:hover {
+    color: var(--secondary-color); /* Efecto hover amarillo */
+}
+
+/* Marca */
+.footer-brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Íconos Sociales */
+.social-icons a {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+/* Barra de Copyright inferior */
+.footer-bottom {
+    background-color: var(--blue-700, #002a5c); /* Un azul más oscuro */
+    text-align: center;
+    padding: 15px 20px;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .footer-col {
+        min-width: 100%;
+    }
+}
+
+/* 10. WHATSAPP FLOTANTE */
+#whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    transition: transform .2s ease-in-out, background-color .2s;
+    cursor: pointer;
+}
+
+#whatsapp-float i {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+#whatsapp-float span {
+    display: inline;
+}
+
+#whatsapp-float:hover {
+    transform: scale(1.05);
+    background-color: #128C7E;
+}
+
+@media (max-width: 600px) {
+    #whatsapp-float {
+        padding: 12px;
+        right: 20px;
+        bottom: 20px;
+    }
+    #whatsapp-float span {
+        display: none;
+    }
+    #whatsapp-float i {
+        font-size: 1.8rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<body>
+
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            
+            <a href="#hero" class="logo">
+                <img src="logo.png" alt="Tony Vara Seguros" style="height: 45px;">
+            </a>
+            
+            <div class="header-actions"> 
+                <a href="tel:+528443272530" class="call-link" aria-label="Llama ahora">
+                    <i class="fas fa-phone-alt"></i> ¡Llama ya!
+                </a>
+
+                <button id="quoteBtn" class="btn primary-btn quote-header-btn">
+                    ¡Cotiza Ahora!
+                </button>
+                
+<button class="menu-toggle" id="hamburgerBtn" aria-label="Menú">
+    <i class="fas fa-bars"></i>
+</button>
+            </div>
+            
+        </div>
+    </header>
+<div class="allies-bar" id="mobileMenu"> 
+    <div class="allies-bar-content">
+        
+        <nav class="main-nav mobile-closed" id="desktopNav"> 
+            <ul>
+                <li><a href="#about" class="nav-link">Conóceme</a></li>
+                <li><a href="#services" class="nav-link">Servicios</a></li>
+                <li><a href="#allies" class="nav-link">Aliados</a></li>
+                <li><a href="#location" class="nav-link">Ubicación</a></li>
+                <li><a href="#contact-highlight" class="nav-link">Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="social-dropdown">
+            <button class="social-toggle" id="socialToggle" aria-expanded="false" aria-label="Redes Sociales">
+                Redes
+                <i class="fas fa-caret-down"></i> 
+            </button>
+            <div class="social-menu" id="socialMenu">
+                <a href="https://www.facebook.com/profile.php?id=61560132586106" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://www.instagram.com/tonyvara.seguros" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.tiktok.com/@tony.varaslw" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i> TikTok</a>
+            </div>
+        </div>
+        </div>
+</div>
+
+<!-- Hero -->
+<section id="hero">
+  <div id="hero-content" data-aos="zoom-in">
+    <h1>Protegemos lo que más valoras</h1>
+     <p><strong>Tony Vara | Tu Agente de Seguros</strong> te ofrece asesoría personalizada en seguros de vida, auto, gastos médicos y planes de retiro.</p>
+    <p>Calcula la protección ideal para tu familia. Obtén tu <strong>cotización gratuita</strong> ahora y sin compromiso.</p>
+<a href="javascript:void(0)" id="heroQuoteBtn">Cotizar</a>
+  </div>
+</section>
+
+<div id="quoteModal">
+  <div class="modal-content">
+    
+    <h2 id="quoteTitle">Solicita tu cotización</h2>
+    <span id="closeModal" class="close-btn">&times;</span>
+    
+    <p class="quote-note" id="quoteNote">
+      Complete este formulario y nosotros nos pondremos en contacto con usted para realizar su cotización.
+    </p>
+    
+    <form id="quoteForm">
+      <label for="firstName"><strong>Nombre</strong></label>
+      <input type="text" id="firstName" name="Nombre" placeholder="Ingresa tu nombre" required>
+
+      <label for="lastName"><strong>Apellidos</strong></label>
+      <input type="text" id="lastName" name="Apellidos" placeholder="Ingresa tus apellidos" required>
+
+      <label for="email"><strong>Correo electrónico</strong></label>
+      <input type="email" id="email" name="Correo" placeholder="ejemplo@correo.com" required>
+
+      <label for="phone"><strong>Número de teléfono</strong></label>
+      <input type="tel" id="phone" name="Telefono" placeholder="Ej. 55 1234 5678" required>
+
+      <label for="insuranceType"><strong>¿Qué tipo de seguro te interesa?</strong></label>
+      <select id="insuranceType" name="TipoSeguro" required>
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="Seguro de Auto">Seguro de Auto</option>
+        <option value="Seguro de Vida">Seguro de Vida</option>
+        <option value="Gastos Médicos Mayores">Seguro de Gastos Médicos Mayores</option>
+        <option value="Seguro de Hogar">Seguro de Hogar</option>
+        <option value="Plan Personal de Retiro">Plan Personal de Retiro</option>
+        <option value="Seguro de Socios">Seguro de Socios</option>
+        <option value="Seguro de Daños">Seguro de Daños</option>
+        <option value="Seguro de Técnicos y Dirigentes (Hombre Clave)">Seguro de Técnicos y Dirigentes (Hombre Clave)</option>
+      </select>
+
+      <label for="contactPreference"><strong>¿Cómo prefieres que te contactemos?</strong></label>
+      <select id="contactPreference" name="ContactoPreferido" required>
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="Llamada Telefónica">Llamada Telefónica</option>
+        <option value="Mensaje de WhatsApp">Mensaje de WhatsApp</option>
+      </select>
+
+      <label style="align-items: center; display: flex; gap: 6px; flex-wrap: wrap;">
+        <input type="checkbox" id="privacyCheck" style="width:18px; height:18px; flex-shrink:0; cursor:pointer;">
+        He <span class="highlight">leído</span> y <span class="highlight">acepto</span> el 
+        <span id="privacyLink" style="color:#005f88; cursor:pointer;">Aviso de Privacidad</span>
+      </label>
+      <div id="privacyError" style="display:none; color:red;">Debes aceptar el aviso de privacidad.</div>
+
+      <button type="submit">Enviar</button>
+    </form>
+
+    <div id="quoteSuccess" style="display:none; text-align:center;">
+      <h3>✅ ¡Gracias por tu solicitud!</h3>
+      <p>Nos pondremos en contacto contigo lo antes posible.</p>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Modal Aviso de Privacidad -->
+<div id="privacyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
+  <div class="modal-content" style="max-width:600px; width:90%; max-height:90vh; overflow-y:auto; padding:30px; border-radius:15px; background:#fff; display:flex; flex-direction:column; gap:15px; position:relative; box-shadow:0 5px 20px rgba(0,0,0,0.3);">
+
+<h2 style="text-align:center; color:#005f88;">AVISO DE PRIVACIDAD</h2>
+
+<p>José Antonio Vara González, mejor conocido como Tony Vara, con domicilio en calle Periférico Luis Echeverría Alvarez 1194-6, colonia Cumbres 2do Sector, ciudad Saltillo, municipio o delegación Saltillo, c.p. 25270, en la entidad de Coahuila, país México, y portal de internet <a href="https://varayasociados.com" style="color:#005f88;">varayasociados.com</a>, es el responsable del uso y protección de sus datos personales, y al respecto le informamos lo siguiente:</p>
+
+<h3>¿Para qué fines utilizaremos sus datos personales?</h3>
+<p>Los datos personales que recabamos de usted, los utilizaremos para las siguientes finalidades que son necesarias para el servicio que solicita:</p>
+<ul>
+  <li>Mejorar la experiencia y servicios de los clientes</li>
+  <li>Enviar cotizaciones de seguro solicitadas por el titular</li>
+</ul>
+
+<h3>¿Qué datos personales utilizaremos para estos fines?</h3>
+<p>Para llevar a cabo las finalidades descritas en el presente aviso de privacidad, utilizaremos los siguientes datos personales:</p>
+<ul>
+  <li>Nombre</li>
+  <li>Teléfono celular</li>
+  <li>Correo electrónico</li>
+</ul>
+
+<h3>¿Cómo puede acceder, rectificar o cancelar sus datos personales, u oponerse a su uso?</h3>
+<p>Usted tiene derecho a conocer qué datos personales tenemos de usted, para qué los utilizamos y las condiciones del uso que les damos (Acceso). Asimismo, es su derecho solicitar la corrección de su información personal en caso de que esté desactualizada, sea inexacta o incompleta (Rectificación); que la eliminemos de nuestros registros o bases de datos cuando considere que la misma no está siendo utilizada adecuadamente (Cancelación); así como oponerse al uso de sus datos personales para fines específicos (Oposición). Estos derechos se conocen como derechos ARCO.</p>
+
+<p>Para el ejercicio de cualquiera de los derechos ARCO, usted deberá presentar la solicitud respectiva a través del siguiente medio:</p>
+
+<p>Los titulares de los datos personales podrán ejercer sus derechos de acceso, rectificación, cancelación y oposición (ARCO) enviando una solicitud por correo electrónico a <a href="mailto:ventas@varayasociados.com" style="color:#005f88;">ventas@varayasociados.com</a> o comunicándose al número telefónico 844-327-2530. Se le solicitará al titular identificarse claramente, proporcionando su nombre completo, correo electrónico y número telefonico. Los datos proporcionados serán tratados confidencialmente y únicamente para dar respuesta a la solicitud del titular.</p>
+
+<p>Con relación al procedimiento y requisitos para el ejercicio de sus derechos ARCO, le informamos lo siguiente:</p>
+<ul>
+  <li><strong>a)</strong> ¿A través de qué medios pueden acreditar su identidad el titular y, en su caso, su representante, así como la personalidad este último? <br> Correo electrónico y número telefónico</li>
+  <li><strong>b)</strong> ¿Qué información y/o documentación deberá contener la solicitud? <br> Nombre completo del titular, correo electrónico y número telefonico</li>
+  <li><strong>c)</strong> ¿En cuántos días le daremos respuesta a su solicitud? <br> Se dará respuesta a la solicitud del titular dentro de un plazo máximo de 20 días hábiles a partir de su recepción.</li>
+  <li><strong>d)</strong> ¿Por qué medio le comunicaremos la respuesta a su solicitud? <br> Correo electrónico o número telefónico</li>
+  <li><strong>e)</strong> ¿En qué medios se pueden reproducir los datos personales que, en su caso, solicite? <br> Los datos personales que el titular solicite podrán reproducirse y entregarse a través de correo electrónico en formato digital.</li>
+</ul>
+
+<h3>Los datos de contacto de la persona o departamento de datos personales</h3>
+<p>Que está a cargo de dar trámite a las solicitudes de derechos ARCO, son los siguientes:</p>
+<ul>
+  <li><strong>a)</strong> Nombre de la persona o departamento de datos personales: José Antonio Vara González / Tony Vara</li>
+  <li><strong>b)</strong> Domicilio: calle Periférico Luis Echeverría Álvarez, colonia Cumbres 2do Sector, ciudad Saltillo, municipio o delegación Saltillo, c.p. 25270, en la entidad de Coahuila, país México</li>
+  <li><strong>c)</strong> Correo electrónico: <a href="mailto:ventas@varayasociados.com" style="color:#005f88;">ventas@varayasociados.com</a></li>
+  <li><strong>d)</strong> Número telefónico: 844-327-2530</li>
+</ul>
+
+<h3>Usted puede revocar su consentimiento para el uso de sus datos personales</h3>
+<p>Usted puede revocar el consentimiento que, en su caso, nos haya otorgado para el tratamiento de sus datos personales. Sin embargo, es importante que tenga en cuenta que no en todos los casos podremos atender su solicitud o concluir el uso de forma inmediata, ya que es posible que por alguna obligación legal requiramos seguir tratando sus datos personales. Asimismo, usted deberá considerar que para ciertos fines, la revocación de su consentimiento implicará que no le podamos seguir prestando el servicio que nos solicitó, o la conclusión de su relación con nosotros.</p>
+
+<p>Para revocar su consentimiento deberá presentar su solicitud a través del siguiente medio: <br> Correo electrónico o número telefónico</p>
+
+<p>Con relación al procedimiento y requisitos para la revocación de su consentimiento, le informamos lo siguiente:</p>
+<ul>
+  <li><strong>a)</strong> ¿A través de qué medios pueden acreditar su identidad el titular y, en su caso, su representante, así como la personalidad este último? <br> Pueden acreditar su identidad mediante correo electrónico o número telefónico</li>
+  <li><strong>b)</strong> ¿Qué información y/o documentación deberá contener la solicitud? <br> Nombre completo del titular, correo electrónico y número telefónico, descripción clara y detallada de su solicitud y en caso de su representante, documentación que acredite su identidad</li>
+  <li><strong>c)</strong> ¿En cuántos días le daremos respuesta a su solicitud? <br> Máximo 20 días habiles de haber recibido su solicitud.</li>
+  <li><strong>d)</strong> ¿Por qué medio le comunicaremos la respuesta a su solicitud? <br> Correo electrónico</li>
+</ul>
+
+<h3>¿Cómo puede limitar el uso o divulgación de su información personal?</h3>
+<p>Con objeto de que usted pueda limitar el uso y divulgación de su información personal, le ofrecemos los siguientes medios:</p>
+<p>El titular puede solicitar que no se usen sus datos personales para fines secundarios, enviando un correo a <a href="mailto:ventas@varayasociados.com" style="color:#005f88;">ventas@varayasociados.com</a> o mediante el número telefónico de la oficina (844-327-2530)</p>
+
+<p>De manera adicional, le informamos que contamos con los siguientes listados de exclusión, en los cuales podrá registrarse para que sus datos personales no sean tratados para ciertos fines:</p>
+
+<!-- Tabla -->
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; margin:15px 0; text-align:left;">
+  <thead style="background:#005f88; color:#fff;">
+    <tr>
+      <th>Nombre del listado</th>
+      <th>Finalidad para las que aplica</th>
+      <th>Medio para obtener mayor información</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Listado de exclusión de promociones</td>
+      <td>Mercadotécnia o prospección comercial</td>
+      <td>ventas@varayasociados.com, 844-327-2530</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Asimismo, usted se podrá inscribir a los siguientes registros, en caso de que no desee obtener publicidad de nuestra parte:</p>
+<p>Registro Público de Usuarios, para mayor información consulte el portal de internet de la CONDUSEF</p>
+
+<h3>¿Cómo puede conocer los cambios en este aviso de privacidad?</h3>
+<p>El presente aviso de privacidad puede sufrir modificaciones, cambios o actualizaciones derivadas de nuevos requerimientos legales; de nuestras propias necesidades por los productos o servicios que ofrecemos; de nuestras prácticas de privacidad; de cambios en nuestro modelo de negocio, o por otras causas.</p>
+
+<p>Nos comprometemos a mantenerlo informado sobre los cambios que pueda sufrir el presente aviso de privacidad, a través de: Los cambios o actualizaciones al aviso de privacidad se darán a conocer mediante la publicación de la versión actualizada en nuestro sitio web..</p>
+
+<p>El procedimiento a través del cual se llevarán a cabo las notificaciones sobre cambios o actualizaciones al presente aviso de privacidad es el siguiente: <br> Los cambios o actualizaciones se darán a conocer mediante la página web</p>
+
+<h3>Su consentimiento para el tratamiento de sus datos personales</h3>
+<p>Consiento que mis datos personales sean tratados de conformidad con los términos y condiciones informados en el presente aviso de privacidad.[ ]</p>
+
+<p style="margin-top:15px; font-size:0.85rem; color:#555;"><em>Última actualización: 25/09/2025</em></p>
+
+<!-- Botón cerrar -->
+<span id="closePrivacyModal" style="position:absolute; top:10px; right:14px; font-size:1.5rem; cursor:pointer; color:#555;">&times;</span>
+</div>
+</div>
+
+<!-- About -->
+<section id="about" data-aos="fade-up">
+
+    <div class="about-hero-container">
+        
+        <div class="about-hero-text" data-aos="fade-right">
+            
+            <p class="hero-label">CONOCE A TONY VARA</p>
+            
+            <h2 class="hero-title">Agente de Seguros con Cédula Profesional Tipo B.</h2>
+            
+            <h3 class="hero-subtitle">Asesoría de confianza para proteger tu patrimonio y el de tu familia.</h3>
+            
+            <div class="hero-text-content">
+                <p>Mi objetivo es ofrecer soluciones claras y confiables en <span class="highlight">Vida, Gastos Médicos Mayores, y Retiro</span>.</p>
+            </div>
+
+            <button id="toggle-info-btn" class="hero-toggle-button">
+                Más Sobre Mi <i class="fas fa-chevron-down toggle-icon"></i>
+            </button>
+            
+            <div id="extra-info-toggle" class="extra-info-toggle">
+                <p>· Puedes <a href="https://agentesajustadores.cnsf.gob.mx/" target="_blank" class="highlight">consultar mi cédula aquí</a> (<span class="highlight">folio H349153</span>). Mi carrera inició como representante médico, cimentando un profundo entendimiento de las necesidades de protección de salud.</p>
+                <p>· Soy <span class="highlight">Licenciado en Administración de Empresas por la UVM</span> y trabajo de forma independiente con las principales aseguradoras del país.</p>
+            </div>
+            
+        </div>
+        
+        <div class="about-hero-image" data-aos="fade-left">
+            <img src="tony vara foto.png" alt="Tony Vara">
+        </div>
+
+    </div>
+</section>
+
+<section id="services" data-aos="fade-up">
+    <h2>Nuestros Servicios</h2>
+
+    <div class="tabs-control">
+        <button class="tab-btn active" data-target="personal">
+            Personal
+        </button>
+        <button class="tab-btn" data-target="negocios">
+            Negocios
+        </button>
+    </div>
+
+    <div class="services-carousel">
+        <button class="carousel-btn prev" id="carousel-prev">&#10094;</button>
+
+        <!-- SERVICIOS PERSONALES -->
+        <div class="services-track tab-content active" id="personal">
+            <div class="service-box" data-aos="flip-left">
+                <i class="fa-solid fa-heartbeat service-icon"></i>
+                <p class="title">Seguros de Vida</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Protección y Tranquilidad</h3>
+                    <p style="margin-bottom: 10px;">Proporcionamos <strong>seguridad financiera</strong> a tus seres queridos en caso de tu ausencia. Nuestros planes incluyen coberturas por fallecimiento, invalidez y opciones de ahorro a largo plazo con atractivos rendimientos.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Jefes de familia, profesionistas y cualquier persona que busque dejar un <strong>legado económico</strong> sólido.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Seguro de Vida">¡Me Interesa!</button>
+                </div>
+            </div>
+
+            <div class="service-box" data-aos="flip-left" data-aos-delay="200">
+                <i class="fa-solid fa-hospital service-icon"></i>
+                <p class="title">Gastos Médicos Mayores</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Salud y Economía Protegida</h3>
+                    <p style="margin-bottom: 10px;">Una póliza de <strong>Gastos Médicos Mayores</strong> es la herramienta clave para proteger tu patrimonio de una enfermedad o accidente serio. Te da acceso a la <strong>mejor red hospitalaria</strong> privada sin descapitalizarte.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Familias, personas independientes y aquellos que valoran el acceso a <strong>atención médica de calidad</strong>.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Gastos Médicos Mayores">¡Me Interesa!</button>
+                </div>
+            </div>
+
+            <div class="service-box" data-aos="flip-left" data-aos-delay="400">
+                <i class="fa-solid fa-sack-dollar service-icon"></i>
+                <p class="title">Planes de Retiro</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Asegura tu Yo del Mañana</h3>
+                    <p style="margin-bottom: 10px;">Los <strong>Planes Personales de Retiro (PPR)</strong> te permiten construir un capital sólido para tu jubilación. Además de asegurar tu futuro, obtienes <strong>beneficios fiscales</strong> inmediatos, deduciendo tus aportaciones de impuestos.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Emprendedores, profesionistas y toda persona con deseos de <strong>retirarse cómodamente</strong> y con ventajas fiscales.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Plan Personal de Retiro">¡Me Interesa!</button>
+                </div>
+            </div>
+
+            <div class="service-box" data-aos="flip-left" data-aos-delay="600">
+                <i class="fa-solid fa-car-side service-icon"></i>
+                <p class="title">Seguros de Auto</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Cobertura Total sin Sorpresas</h3>
+                    <p style="margin-bottom: 10px;">Te ofrecemos protección completa para tu vehículo contra <strong>robos, accidentes y daños a terceros</strong>. Trabajamos con las mejores aseguradoras para darte la cobertura más amplia y la respuesta más rápida.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Conductores que buscan <strong>coberturas amplias</strong>, valoran la asistencia vial y quieren un precio justo.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Seguro de Auto">¡Me Interesa!</button>
+                </div>
+            </div>
+
+            <div class="service-box" data-aos="flip-left" data-aos-delay="800">
+                <i class="fa-solid fa-house-chimney service-icon"></i>
+                <p class="title">Seguros de Hogar</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Respaldo para tu Patrimonio</h3>
+                    <p style="margin-bottom: 10px;">El seguro de hogar cubre no solo la estructura de tu casa contra desastres naturales o incendios, sino también tus contenidos (muebles y objetos de valor) y la <strong>responsabilidad civil</strong> por daños a terceros.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Dueños de casa o departamento que desean la <strong>máxima protección</strong> contra cualquier eventualidad.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Seguro de Hogar">¡Me Interesa!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVICIOS DE NEGOCIOS -->
+        <div class="services-track tab-content" id="negocios" style="display: none;">
+
+            <div class="service-box" data-aos="flip-left">
+                <i class="fa-solid fa-people-group service-icon"></i>
+                <p class="title">Seguro de Socios</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Continuidad y Estabilidad Legal</h3>
+                    <p style="margin-bottom: 10px;">El seguro de socios es una herramienta financiera donde la empresa es la beneficiaria. La suma asegurada permite a la empresa <strong>comprar la participación</strong> del socio fallecido, garantizando la <strong>continuidad del negocio</strong> y evitando conflictos con herederos.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Empresas con 2 o más socios que buscan blindar el futuro de la sociedad y mantener el <strong>control accionario</strong> en manos de los miembros activos.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Seguro de Socios">¡Me Interesa!</button>
+                </div>
+            </div>
+
+            <div class="service-box" data-aos="flip-left" data-aos-delay="200">
+                <i class="fa-solid fa-building service-icon"></i>
+                <p class="title">Seguro de Daños</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Moviliza y Protege tu Infraestructura</h3>
+                    <p style="margin-bottom: 10px;">Póliza integral diseñada para proteger tu <strong>logística</strong> (unidades y mercancía transportada) y tus <strong>instalaciones</strong> contra incendios, robos y desastres naturales. Asegura la continuidad de la operación de tu empresa.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Empresas de transporte, manufactura y cualquier negocio que requiera proteger sus <strong>activos en movimiento y fijos</strong>.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Seguro de Daños">¡Me Interesa!</button>
+                </div>
+            </div>
+
+            <div class="service-box" data-aos="flip-left" data-aos-delay="400">
+                <i class="fa-solid fa-user-tie service-icon"></i>
+                <p class="title">Seguro de Técnicos y Dirigentes (Hombre Clave)</p>
+                <div class="service-detail">
+                    <h3 style="margin-bottom: 5px; color: #fff;">Estabilidad Operativa y Fiscal</h3>
+                    <p style="margin-bottom: 10px;">Protege el negocio ante la falta de una <strong>persona crucial</strong> (director, técnico, vendedor estrella) por fallecimiento, accidente o enfermedad. Garantiza la <strong>estabilidad operativa y financiera</strong> de la empresa.</p>
+                    <p style="margin-bottom: 10px;">Esta póliza es una herramienta de <strong>prevención y protección</strong>, y sus primas son <strong>100% deducibles</strong> de impuestos para la empresa.</p>
+                    <p style="margin-bottom: 10px;"><strong>Ideal para:</strong> Dueños de PyMEs que son el <strong>motor del negocio</strong> y organizaciones que buscan maximizar ventajas fiscales.</p>
+                    <button class="btn btn-interesa btn-cta-yellow" data-service="Seguro de Técnicos y Dirigentes (Hombre Clave)">¡Me Interesa!</button>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-btn next" id="carousel-next">&#10095;</button>
+    </div>
+</section>
+
+
+<section id="allies" class="allies-section" data-aos="fade-up">
+    
+    <div class="allies-header-bar">
+        <h2>Nuestras Aseguradoras y Afianzadoras Aliadas</h2>
+        <div class="allies-tab-container">
+            <button class="allies-tab-btn active" data-target="aseguradoras">
+                Aseguradoras
+            </button>
+            <button class="allies-tab-btn" data-target="afianzadoras">
+                Afianzadoras
+            </button>
+        </div>
+        </div>
+    
+    <div class="allies-logos-container">
+        
+        <div id="aseguradoras" class="allies-tab-content active-content">
+            <div class="logo-carousel-container">
+                
+                <button class="arrow-btn prev-logo-btn" id="prevLogoBtnAseguradoras">
+                    &#10094; 
+                </button>
+
+                <div class="logos-wrapper">
+                    <div class="logo-carousel">
+                        <div class="logo-track" id="logoTrackAseguradoras">
+                            
+                            <div class="logo-box"><img src="logo gnp.png" alt="Logo GNP Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="skandia logo.png" alt="Logo Skandia" loading="lazy"></div>
+                            <div class="logo-box"><img src="axa logo.png" alt="Logo AXA Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="chubb logo.png" alt="Logo CHUBB Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="qualitas logo.png" alt="Logo Quálitas Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="ana logo.png" alt="Logo ANA Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="metlife logo.png" alt="Logo MetLife México" loading="lazy"></div>
+                            <div class="logo-box"><img src="plan seguro logo.png" alt="Logo Plan Seguro" loading="lazy"></div>
+                            <div class="logo-box"><img src="hdi logo.png" alt="Logo HDI Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="atlas logo.png" alt="Logo Atlas Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="logo mapfre.png" alt="Logo Mapfre Seguros" loading="lazy"></div>
+                            <div class="logo-box"><img src="Bx+ Logo Vector.svg .png" alt="Logo BX+" loading="lazy"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="arrow-btn next-logo-btn" id="nextLogoBtnAseguradoras">
+                    &#10095; 
+                </button>
+                
+            </div>
+        </div>
+        
+        <div id="afianzadoras" class="allies-tab-content">
+
+            <div class="logo-carousel-container">
+                
+                <button class="arrow-btn prev-logo-btn" id="prevLogoBtnAfianzadoras">
+                    &#10094; 
+                </button>
+
+                <div class="logos-wrapper">
+                    <div class="logo-carousel">
+                        <div class="logo-track" id="logoTrackAfianzadoras">
+                            
+                            <div class="logo-box"><img src="Logo_Aserta.svg" alt="Logo BX+" loading="lazy"></div>
+                            <div class="logo-box"><img src="tokio_logo.png" alt="Logo BX+" loading="lazy"></div>
+                            <div class="logo-box"><img src="Berkley_logo.png" alt="Logo BX+" loading="lazy"></div>
+                            <div class="logo-box"><img src="INSURGENTES_logo.png" alt="Logo BX+" loading="lazy"></div>
+                            <div class="logo-box"><img src="libertad-logo.png" alt="Logo BX+" loading="lazy"></div>
+                            </div>
+                    </div>
+                </div>
+
+                <button class="arrow-btn next-logo-btn" id="nextLogoBtnAfianzadoras">
+                    &#10095; 
+                </button>
+                
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="location" class="location-section">
+    <div class="container-center">
+
+        <!-- CABECERA AZUL IGUAL QUE ALIADOS/SERVICIOS -->
+        <div class="location-header-bar">
+            <h2>Nuestra Oficina y Cobertura</h2>
+        </div>
+        <p class="subtitle">
+            Soy una agente independiente con cobertura nacional, con base en mi oficina principal.
+        </p>
+
+        <div class="location-content">
+            <div class="office-info">
+                <h2>Oficina Principal:</h2>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Periférico Luis Echeverría Álvarez 1194-6, Cumbres 2da Ampliación, Saltillo, Coahuila, 25270</p>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>844-327-2530</p>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>ventas@varayasociados.com</p>
+                </div>
+
+                <h2>Alcance:</h2>
+                <div class="info-item">
+                    <i class="fas fa-globe-americas"></i>
+                    <p>Al contar con cobertura nacional, podemos dar servicio en cualquier parte del país.</p>
+                </div>
+
+                <a href="#quoteModal" id="cotiza-btn" class="btn btn-yellow">
+                    ¡Cotiza sin importar tu ubicación!
+                </a>
+            </div>
+
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.851666712699!2d-100.98154412554956!3d25.4432222216935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868812ab16afaee3%3A0xcef14d862e905b0e!2sPerif.%20Luis%20Echeverr%C3%ADa%201194-6%2C%20Cumbres%202da%20Amp%2C%2025270%20Saltillo%2C%20Coah.!5e0!3m2!1ses-419!2smx!4v1760147183852!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="contact-highlight" data-aos="fade-up">
+
+    <div class="contact-content-wrapper">
+
+        <div class="contact-details">
+
+<h2 class="contact-title">¿Listo para</h2>
+<h2 class="contact-title contact-line-2">asegurar tu futuro?</h2>
+<span class="contact-action-emphasis">¡Contáctame!</span>
+
+<p class="agent-name-highlight">
+    José Antonio Vara González - Agente de Seguros
+</p>
+<p class="cta-subtitle" style="margin-bottom: 25px; font-weight: 500;">
+    Obtén una cotización sin compromiso y protege tu futuro.
+</p>
+            <div class="contact-links-group">
+    <a href="tel:+528443272530" class="main-contact-link-v2">
+        <i class="fas fa-phone-alt"></i> ¡Llama Ahora!
+    </a>
+    
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=ventas@varayasociados.com&su=Tengo una duda" 
+   target="_blank"
+   class="secondary-contact-link-v2"> 
+   <i class="fas fa-envelope"></i> Escribenos por Gmail
+</a>
+</div>
+
+            <p class="social-text" style="margin-top: 25px;">Sígueme en redes:</p>
+            <div class="contact-icons-v2">
+                <a href="https://www.tiktok.com/@tony.varaslw" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61560132586106" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/tonyvara.seguros" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        
+        <div class="contact-image-placeholder" data-aos="fade-left" data-aos-delay="300">
+            <img src="TONY CONTACTO.png" alt="Tony Vara, Agente de Seguros" loading="lazy">
+        </div>
+        
+    </div>
+</section>
+
+<a href="https://wa.me/528443272530" target="_blank" id="whatsapp-float">
+  <i class="fab fa-whatsapp"></i>
+  <span>¿En qué podemos ayudarte?</span>
+</a>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <p class="footer-brand">Tony Vara | Tu Agente de Seguros</p>
+            <p><strong>Teléfono:</strong> 844-327-2530</p>
+            <p><strong>Correo:</strong> ventas@varayasociados.com</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Navegación</h4>
+            <ul>
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#about">Conóceme</a></li>
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#allies">Aliados</a></li>
+                <li><a href="#location">Ubicación</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col legal-links">
+            <h4>Información Legal</h4>
+            <ul>
+                <li><a href="#privacyModal" id="privacyLinkFooter">Aviso de Privacidad</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-col social-col">
+            <h4>Síguenos</h4>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61560132586106"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/tonyvara.seguros"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@tony.varaslw"><i class="fab fa-tiktok"></i></a>
+                </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2025 Tony Vara | Tu Agente de Seguros. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // ---------- Inicializaciones ----------
+    try { if(window.emailjs) emailjs.init("YT96c118shM32wp_P"); } catch(e){}
+    try { if(window.AOS) AOS.init({ duration: 900, once: true }); } catch(e){}
+
+    // Header scroll effect
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if(window.scrollY > 50) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+    });
+
+    // ---------- MODALES ----------
+    const headerQuoteBtn = document.getElementById('quoteBtn'); 
+    const heroQuoteBtn = document.getElementById('heroQuoteBtn');
+    const locationQuoteBtn = document.getElementById('cotiza-btn');
+    const quoteModal = document.getElementById('quoteModal');
+    const closeModal = document.getElementById('closeModal');
+    const quoteForm = document.getElementById('quoteForm');
+    const quoteSuccess = document.getElementById('quoteSuccess');
+    const quoteTitle = document.getElementById('quoteTitle');
+    const quoteNote = document.getElementById('quoteNote');
+    const privacyLink = document.getElementById('privacyLink');
+    const privacyLinkFooter = document.getElementById('privacyLinkFooter');
+    const privacyModal = document.getElementById('privacyModal');
+    const closePrivacyModal = document.getElementById('closePrivacyModal');
+    const insuranceTypeField = document.getElementById("insuranceType");
+
+    function openModal(modal){
+        modal.style.display = 'flex'; 
+        document.body.classList.add('modal-open');
+        setTimeout(() => {
+            modal.classList.add('is-open'); 
+        }, 10); 
+    }
+
+    function closeModalFn(modal){
+        modal.classList.remove('is-open'); 
+        document.body.classList.remove('modal-open');
+        setTimeout(() => {
+            modal.style.display = 'none'; 
+        }, 300); 
+    }
+
+    if(headerQuoteBtn) headerQuoteBtn.addEventListener('click', e => { e.preventDefault(); openModal(quoteModal); });
+    if(heroQuoteBtn) heroQuoteBtn.addEventListener('click', e => { e.preventDefault(); openModal(quoteModal); });
+    if(locationQuoteBtn) locationQuoteBtn.addEventListener('click', e => { e.preventDefault(); openModal(quoteModal); });
+    if(closeModal) closeModal.addEventListener('click', () => { closeModalFn(quoteModal); resetQuoteModal(); });
+    if(privacyLink) privacyLink.addEventListener('click', e => { e.preventDefault(); openModal(privacyModal); });
+     if(privacyLinkFooter) privacyLinkFooter.addEventListener('click', e => { e.preventDefault(); openModal(privacyModal); }); 
+    if(closePrivacyModal) closePrivacyModal.addEventListener('click', () => { closeModalFn(privacyModal); });
+
+    window.addEventListener('click', e => {
+        if(e.target === quoteModal){ closeModalFn(quoteModal); resetQuoteModal(); }
+        if(e.target === privacyModal){ closeModalFn(privacyModal); }
+    });
+
+    function collapseAllServices() {
+        document.querySelectorAll('.service-box').forEach(b => b.classList.remove('is-expanded'));
+    }
+
+    window.addEventListener('keydown', e => {
+        if(e.key === 'Escape'){ 
+            closeModalFn(quoteModal); 
+            closeModalFn(privacyModal); 
+            collapseAllServices(); 
+        }
+    });
+
+    function resetQuoteModal(){
+        if(quoteForm) quoteForm.style.display = 'block';
+        if(quoteSuccess) quoteSuccess.style.display = 'none';
+        if(quoteTitle) quoteTitle.textContent = "Solicita tu cotización";
+        if(quoteNote) quoteNote.style.display = 'block';
+        if(quoteForm) quoteForm.reset();
+        if(insuranceTypeField) insuranceTypeField.value = ""; 
+    }
+
+    // =========================================================
+    // === BOTÓN "ME INTERESA" EN SERVICE BOX Y FORMULARIO ===
+    // =========================================================
+    document.querySelectorAll('.btn-interesa').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation(); 
+            const serviceName = btn.getAttribute('data-service');
+            
+            if(insuranceTypeField) {
+                insuranceTypeField.value = serviceName;
+            }
+            if(quoteTitle) quoteTitle.textContent = `Cotización: ${serviceName}`;
+            openModal(quoteModal);
+        });
+    });
+
+    if(quoteForm){
+        quoteForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const privacyCheck = document.getElementById('privacyCheck');
+            const privacyError = document.getElementById('privacyError');
+            if(privacyError) privacyError.style.display = 'none';
+            if(privacyCheck && !privacyCheck.checked){
+                if(privacyError) privacyError.style.display = 'block';
+                return;
+            }
+
+            const insuranceTypeField = document.getElementById("insuranceType");
+            const contactPreferenceField = document.getElementById("contactPreference");
+
+            const templateParams = {
+                Nombre: document.getElementById("firstName").value || '',
+                Apellidos: document.getElementById("lastName").value || '',
+                Correo: document.getElementById("email").value || '',
+                Telefono: document.getElementById("phone").value || '',
+                TipoSeguro: insuranceTypeField ? insuranceTypeField.value : "",
+                ContactoPreferido: contactPreferenceField ? contactPreferenceField.value : "",
+                time: new Date().toLocaleString()
+            };
+
+            if(window.emailjs && emailjs.send){
+                emailjs.send('service_h4umxin', 'template_ldbw56u', templateParams)
+                    .then(() => {
+                        quoteTitle.textContent = "Cotización enviada";
+                        if(quoteNote) quoteNote.style.display = "none";
+                        quoteForm.style.display = "none";
+                        if(quoteSuccess) quoteSuccess.style.display = "block";
+                        quoteForm.reset();
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Hubo un error al enviar tu solicitud. Intenta de nuevo.");
+                    });
+            } else {
+                quoteTitle.textContent = "Cotización (simulada)";
+                if(quoteNote) quoteNote.style.display = "none";
+                quoteForm.style.display = "none";
+                if(quoteSuccess) quoteSuccess.style.display = "block";
+                quoteForm.reset();
+            }
+        });
+    }
+
+    // =========================================================
+    // === BLOQUE 1: PESTAÑAS Y CARRUSEL COMBINADO (SERVICIOS) ===
+    // =========================================================
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const prevBtn = document.getElementById('carousel-prev'); 
+    const nextBtn = document.getElementById('carousel-next'); 
+    let currentIndex = 0;
+
+    document.querySelectorAll('.service-box').forEach(box => {
+        box.addEventListener('click', function() {
+            const wasExpanded = this.classList.contains('is-expanded');
+            collapseAllServices(); 
+            if (!wasExpanded) {
+                this.classList.add('is-expanded');
+            }
+            setTimeout(updateCarousel, 400); 
+        });
+    });
+
+    function getItemsToShow() {
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
+    }
+
+    function updateCarousel(activeTrack) {
+        const track = activeTrack || document.querySelector('.services-track:not([style*="display: none"])');
+        if (!track) return;
+        
+        const serviceBoxes = track.querySelectorAll('.service-box');
+        if(serviceBoxes.length === 0) return;
+
+        const itemsToShow = getItemsToShow();
+        const totalItems = serviceBoxes.length;
+
+        if (currentIndex > totalItems - itemsToShow) {
+            currentIndex = Math.max(0, totalItems - itemsToShow);
+        } else if (currentIndex < 0) {
+            currentIndex = 0;
+        }
+
+        const boxWidthWithGap = serviceBoxes[0].offsetWidth + 20; 
+        const offset = -currentIndex * boxWidthWithGap;
+        track.style.transform = `translateX(${offset}px)`;
+
+        const canScroll = totalItems > itemsToShow;
+        if (!canScroll) {
+            if(prevBtn) prevBtn.style.opacity = 0;
+            if(nextBtn) nextBtn.style.opacity = 0;
+            if(prevBtn) prevBtn.disabled = true;
+            if(nextBtn) nextBtn.disabled = true;
+        } else {
+            if(prevBtn) {
+                prevBtn.disabled = currentIndex === 0;
+                prevBtn.style.opacity = currentIndex === 0 ? 0 : 1;
+            }
+            if(nextBtn) {
+                const isAtEnd = currentIndex >= totalItems - itemsToShow;
+                nextBtn.disabled = isAtEnd;
+                nextBtn.style.opacity = isAtEnd ? 0 : 1;
+            }
+        }
+    }
+
+    function switchTab(targetId) {
+        collapseAllServices(); 
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.style.display = 'none');
+        const targetBtn = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
+        const targetContent = document.getElementById(targetId);
+
+        if (targetBtn && targetContent) {
+            targetBtn.classList.add('active');
+            targetContent.style.display = 'flex'; 
+            setTimeout(() => {
+                currentIndex = 0; 
+                updateCarousel(targetContent); 
+            }, 10);
+        }
+    }
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.dataset.target;
+            switchTab(targetId);
+        });
+    });
+    
+    if(nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const activeTrack = document.querySelector('.services-track:not([style*="display: none"])');
+            const serviceBoxes = activeTrack.querySelectorAll('.service-box');
+            const itemsToShow = getItemsToShow();
+            const totalItems = serviceBoxes.length;
+            if (currentIndex < totalItems - itemsToShow) {
+                currentIndex++;
+                updateCarousel(activeTrack);
+            }
+        });
+    }
+
+    if(prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if(currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+    }
+
+    switchTab('personal');
+
+
+    // =========================================================
+    // === BLOQUE 2: PESTAÑAS Y CARRUSEL DE LOGOS (ALIADOS) ===
+    // =========================================================
+    function getLogosToShow() {
+        if (window.innerWidth <= 768) return 4;  
+        if (window.innerWidth <= 1024) return 5; 
+        return 6; 
+    }
+
+    const logoCarouselIndexes = {
+        aseguradoras: 0,
+        afianzadoras: 0
+    };
+
+    function initializeLogoCarousel(trackId, prevBtnId, nextBtnId, type) {
+        const logoTrack = document.getElementById(trackId);
+        const prevLogoBtn = document.getElementById(prevBtnId);
+        const nextLogoBtn = document.getElementById(nextBtnId);
+        const carouselContainer = logoTrack.closest('.logo-carousel');
+
+        if (!logoTrack || !prevLogoBtn || !nextLogoBtn) return null;
+        
+        const logoBoxes = logoTrack.querySelectorAll('.logo-box');
+        const totalLogos = logoBoxes.length;
+
+        function updateLogoCarousel() {
+            const itemsToShow = getLogosToShow();
+            const logoIndex = logoCarouselIndexes[type];
+            const maxIndex = Math.max(0, totalLogos - itemsToShow);
+            const canScroll = totalLogos > itemsToShow;
+
+            // === NUEVO: centrado automático si no hay scroll ===
+            if (type === 'afianzadoras') {
+                if (!canScroll) {
+                    carouselContainer.classList.add('center-content');
+                } else {
+                    carouselContainer.classList.remove('center-content');
+                }
+            }
+
+            if (!canScroll) {
+                prevLogoBtn.classList.add('hidden');
+                nextLogoBtn.classList.add('hidden');
+                logoTrack.style.transform = `translateX(0px)`;
+                return;
+            }
+
+            if (logoIndex > maxIndex) {
+                logoCarouselIndexes[type] = maxIndex;
+            }
+
+            const firstBox = logoBoxes[0];
+            const styles = window.getComputedStyle(firstBox);
+            const marginRight = parseFloat(styles.marginRight);
+            const marginLeft = parseFloat(styles.marginLeft);
+            const boxWidth = firstBox.offsetWidth + marginLeft + marginRight; 
+            
+            const offset = -logoCarouselIndexes[type] * boxWidth; 
+            logoTrack.style.transform = `translateX(${offset}px)`;
+
+            prevLogoBtn.classList.toggle('hidden', logoCarouselIndexes[type] === 0);
+            nextLogoBtn.classList.toggle('hidden', logoCarouselIndexes[type] >= maxIndex);
+        }
+
+        nextLogoBtn.addEventListener('click', () => {
+            const itemsToShow = getLogosToShow();
+            const maxIndex = Math.max(0, totalLogos - itemsToShow);
+            if (logoCarouselIndexes[type] < maxIndex) {
+                logoCarouselIndexes[type]++;
+                updateLogoCarousel();
+            }
+        });
+
+        prevLogoBtn.addEventListener('click', () => {
+            if(logoCarouselIndexes[type] > 0) {
+                logoCarouselIndexes[type]--;
+                updateLogoCarousel();
+            }
+        });
+
+        updateLogoCarousel();
+        return updateLogoCarousel; 
+    }
+
+    const updateAseguradoras = initializeLogoCarousel('logoTrackAseguradoras', 'prevLogoBtnAseguradoras', 'nextLogoBtnAseguradoras', 'aseguradoras');
+    const updateAfianzadoras = initializeLogoCarousel('logoTrackAfianzadoras', 'prevLogoBtnAfianzadoras', 'nextLogoBtnAfianzadoras', 'afianzadoras');
+
+    const alliesTabButtons = document.querySelectorAll('.allies-tab-btn');
+    const alliesTabContents = document.querySelectorAll('.allies-tab-content');
+
+    function switchAlliesTab(targetId) {
+        alliesTabButtons.forEach(btn => btn.classList.remove('active'));
+        alliesTabContents.forEach(content => content.classList.remove('active-content'));
+
+        const targetBtn = document.querySelector(`.allies-tab-btn[data-target="${targetId}"]`);
+        const targetContent = document.getElementById(targetId);
+
+        if (targetBtn && targetContent) {
+            targetBtn.classList.add('active');
+            targetContent.classList.add('active-content');
+
+            if (targetId === 'aseguradoras' && updateAseguradoras) updateAseguradoras();
+            else if (targetId === 'afianzadoras' && updateAfianzadoras) updateAfianzadoras();
+        }
+    }
+
+    alliesTabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchAlliesTab(btn.dataset.target);
+        });
+    });
+
+    switchAlliesTab('aseguradoras'); 
+
+    window.addEventListener('resize', () => {
+        currentIndex = 0; 
+        updateCarousel();
+
+        logoCarouselIndexes.aseguradoras = 0;
+        logoCarouselIndexes.afianzadoras = 0;
+        
+        const activeAlliesTab = document.querySelector('.allies-tab-btn.active');
+        if (activeAlliesTab) {
+            const activeId = activeAlliesTab.dataset.target;
+             if (activeId === 'aseguradoras' && updateAseguradoras) updateAseguradoras();
+             if (activeId === 'afianzadoras' && updateAfianzadoras) updateAfianzadoras();
+        }
+    });
+
+
+    // =========================================================
+    // === MENÚS VARIOS (REDES SOCIALES, ABOUT) ===
+    // =========================================================
+    const socialToggle = document.getElementById('socialToggle');
+    const socialMenu = document.getElementById('socialMenu');
+
+    if (socialToggle && socialMenu) {
+        socialToggle.addEventListener('click', function(event) {
+            event.stopPropagation();
+            socialMenu.classList.toggle('is-open');
+            const isExpanded = socialToggle.getAttribute('aria-expanded') === 'true' || false;
+            socialToggle.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        document.addEventListener('click', function(event) {
+            const socialDropdown = socialToggle.closest('.social-dropdown');
+            if (socialDropdown && !socialDropdown.contains(event.target)) {
+                socialMenu.classList.remove('is-open');
+                socialToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    const aboutToggleBtn = document.getElementById('toggle-info-btn');
+    const aboutExtraInfo = document.getElementById('extra-info-toggle');
+
+    if (aboutToggleBtn && aboutExtraInfo) {
+        aboutToggleBtn.addEventListener('click', function() {
+            aboutExtraInfo.classList.toggle('is-open');
+            const icon = aboutToggleBtn.querySelector('.toggle-icon');
+            if (aboutExtraInfo.classList.contains('is-open')) {
+                aboutToggleBtn.childNodes[0].nodeValue = 'Ocultar Más Sobre Mi ';
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            } else {
+                aboutToggleBtn.childNodes[0].nodeValue = 'Más Sobre Mi ';
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            }
+        });
+    }
+
+    // =========================================================
+// === FUNCIONALIDAD MENÚ DE HAMBURGUESA CORREGIDO ===
+// =========================================================
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const desktopNav = document.getElementById('desktopNav');
+
+    if (hamburgerBtn && desktopNav) {
+        hamburgerBtn.addEventListener('click', () => {
+            // Toggle clase para mostrar/ocultar el menú
+            desktopNav.classList.toggle('is-open');
+
+            // Cambiar icono de hamburguesa a cruz
+            const icon = hamburgerBtn.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
+
+            // Bloquear scroll del body mientras el menú está abierto
+            document.body.style.overflow = desktopNav.classList.contains('is-open') ? 'hidden' : 'auto';
+        });
+
+        // Opcional: cerrar menú al hacer clic en cualquier enlace
+        desktopNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (desktopNav.classList.contains('is-open')) {
+                    desktopNav.classList.remove('is-open');
+                    const icon = hamburgerBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    }
+});
+</script>
+</body>
+</html>
