@@ -2129,45 +2129,41 @@ border: -1;
 /* RESPONSIVE: Ajustes para móvil (Todas las correcciones que funcionan en celular) */
 @media (max-width: 768px) {
     
-    /* Centra el contenedor de los botones grandes y ajusta su tamaño */
+    /* 1. Centramos el contenedor de texto principal y le damos margen */
+    .contact-details {
+        text-align: center;
+        padding-left: 15px; /* Margen de seguridad */
+        padding-right: 15px; /* Margen de seguridad */
+    }
+
+    /* 2. El contenedor de los botones se vuelve Flexbox para centrar y manejar el flujo */
     .contact-links-group {
-        justify-content: center; 
-        gap: 10px; /* Espacio mínimo para que quepan */
-        margin-bottom: 25px; 
-        /* Eliminamos width: 90%; para que Flexbox lo maneje */
-        /* Mantenemos display: flex; y quitamos flex-direction: column; */
+        display: flex; /* Asegura el comportamiento Flex */
+        justify-content: center; /* Centra los botones dentro del grupo */
+        gap: 10px; /* Espacio mínimo para que quepan uno al lado del otro */
+        margin-bottom: 25px;
     }
     
-    /* Hacemos los botones de Llamar/Gmail más pequeños y flexibles para que quepan */
+    /* 3. Ajustamos los botones principales para que puedan reducirse y crecer */
     .main-contact-link-v2, .secondary-contact-link-v2 {
-        /* Reducimos el padding horizontal a 10px (mínimo seguro) */
-        padding: 10px 10px; 
-        /* Reducimos el tamaño de la fuente para que el texto NO se corte */
-        font-size: 0.9rem;  
+        padding: 10px 10px; /* Reducción máxima del padding para ahorrar espacio */
+        font-size: 0.85rem; /* Reducción máxima del tamaño de fuente (el más seguro) */
         
-        /* Flex-shrink: 0 evita que el botón se comprima más de lo necesario */
-        flex-shrink: 0; 
-        /* Flex-grow: 1 permite que usen el espacio equitativamente */
+        /* Permitimos que se encojan (shrink) si es necesario, pero manteniendo la proporción (grow) */
         flex-grow: 1; 
+        flex-shrink: 1; 
+        flex-basis: 0; /* Permite a los navegadores calcular mejor el ancho compartido */
     }
     
-    /* Ajustamos el ícono dentro de los botones */
-    .main-contact-link-v2 i, .secondary-contact-link-v2 i {
-        margin-right: 5px; 
-        font-size: 1.0rem;
-    }
-    
-    /* Centramos el grupo de íconos de redes sociales */
+    /* 4. Centramos los íconos de redes sociales */
     .contact-icons-v2 {
         justify-content: center; 
         margin-bottom: 20px;
     }
     
-    /* Centramos el texto de los detalles de contacto y añadimos padding lateral */
-    .contact-details {
+    /* Restablecemos el texto de las redes sociales por si fue afectado */
+    .social-text {
         text-align: center;
-        padding-left: 10px; /* Añade un pequeño margen para que el texto no se pegue */
-        padding-right: 10px;
     }
 }
 
@@ -3418,6 +3414,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
