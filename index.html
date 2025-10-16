@@ -2207,10 +2207,12 @@ border: -1;
 /* RESPONSIVE: Dos columnas en pantallas grandes (Escritorio) */
 @media (min-width: 769px) {
     .contact-content-wrapper {
-        flex-direction: row; /* Aplica la vista de "fila" para PC */
+        flex-direction: row; 
         justify-content: center;
         gap: 60px;
-        align-items: center;
+        /* CLAVE 1: ESTIRAR los elementos internos verticalmente para que sean de la misma altura */
+        align-items: stretch; 
+        height: 100%; /* Asegura que la fila ocupe el espacio */
     }
 
     .contact-details {
@@ -2218,6 +2220,10 @@ border: -1;
         margin-left: -15px;
         max-width: 55%;
         flex: 1;
+        /* CLAVE 2: ALINEAR la foto al final, dentro del detalle estirado. */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Empuja el contenido hacia arriba */
     }
 
     .contact-links-group {
@@ -2234,24 +2240,31 @@ border: -1;
 
     .contact-icons-v2 {
         display: flex;
-        justify-content: center; /* Centra los íconos horizontalmente en PC */
+        justify-content: flex-start; /* Alineamos a la izquierda con el texto */
         margin-bottom: 20px;
     }
 
     .contact-image-placeholder {
         width: 350px;
         margin-left: 30px;
-        display: flex;             /* Habilita Flexbox */
-        flex-direction: column;    /* Permite alinear verticalmente */
-        justify-content: flex-end; /* Pega la imagen al borde inferior */
-        height: 100%;              /* Ocupa la altura completa de la fila */
-        padding-top: 20px;         /* Espacio superior para que no se corte */
+        
+        /* CLAVE 3: PEGAR LA IMAGEN AL FONDO DE SU PROPIO CONTENEDOR ESTIRADO */
+        display: flex;             
+        flex-direction: column;    
+        justify-content: flex-end; /* Lo esencial para pegarla abajo */
+        height: 100%;              
+        
+        /* Eliminamos padding-top para que no empuje la imagen. */
+        padding-top: 0;
     }
     
     .contact-image-placeholder img {
         margin-left: 0;
-        /* Aseguramos que la imagen no tenga un desplazamiento 'transform' */
+        /* Aseguramos que la imagen no se mueva y que ocupe todo el ancho */
         transform: none !important; 
+        object-fit: contain; 
+        width: 100%; 
+        height: auto; 
     }
 }
   
@@ -3480,6 +3493,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
