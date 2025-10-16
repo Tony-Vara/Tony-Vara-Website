@@ -1717,6 +1717,11 @@ body {
     .allies-tab-container {
         justify-content: center;
     }
+
+    .allies-tab-content.active-content .logo-carousel .logo-track .logo-box {
+        width: calc(50% - 25px); 
+        margin: 0 12.5px; 
+    }
 }
 
 /* =====================================
@@ -3235,135 +3240,156 @@ document.addEventListener('DOMContentLoaded', function () {
     switchTab('personal');
 
 
-    // =========================================================
-    // === BLOQUE 2: PESTAÑAS Y CARRUSEL DE LOGOS (ALIADOS) ===
-    // =========================================================
-    function getLogosToShow() {
-        if (window.innerWidth <= 768) return 4;  
-        if (window.innerWidth <= 1024) return 5; 
-        return 6; 
-    }
+   // =========================================================
+// === BLOQUE 2: PESTAÑAS Y CARRUSEL DE LOGOS (ALIADOS) ===
+// =========================================================
+function getLogosToShow() {
+    // CORRECCIÓN CLAVE: En móvil (<768px) mostrar solo 2 logos visibles a la vez.
+    if (window.innerWidth <= 768) return 2;  
+    if (window.innerWidth <= 1024) return 5; 
+    return 6; 
+}
 
-    const logoCarouselIndexes = {
-        aseguradoras: 0,
-        afianzadoras: 0
-    };
+const logoCarouselIndexes = {
+    aseguradoras: 0,
+    afianzadoras: 0
+};
 
-    function initializeLogoCarousel(trackId, prevBtnId, nextBtnId, type) {
-        const logoTrack = document.getElementById(trackId);
-        const prevLogoBtn = document.getElementById(prevBtnId);
-        const nextLogoBtn = document.getElementById(nextBtnId);
-        const carouselContainer = logoTrack.closest('.logo-carousel');
+function initializeLogoCarousel(trackId, prevBtnId, nextBtnId, type) {
+    const logoTrack = document.getElementById(trackId);
+    const prevLogoBtn = document.getElementById(prevBtnId);
+    const nextLogoBtn = document.getElementById(nextBtnId);
+    const carouselContainer = logoTrack.closest('.logo-carousel');
 
-        if (!logoTrack || !prevLogoBtn || !nextLogoBtn) return null;
+    if (!logoTrack || !prevLogoBtn || !nextLogoBtn) return null;
+    
+    const logoBoxes = logoTrack.querySelectorAll('.logo-box');
+    const totalLogos = logoBoxes.length;
+
+    function updateLogoCarousel() {
+        const itemsToShow = getLogosToShow();
+        let logoIndex = logoCarouselIndexes[type];
         
-        const logoBoxes = logoTrack.querySelectorAll('.logo-box');
-        const totalLogos = logoBoxes.length;
-
-        function updateLogoCarousel() {
-            const itemsToShow = getLogosToShow();
-            const logoIndex = logoCarouselIndexes[type];
-            const maxIndex = Math.max(0, totalLogos - itemsToShow);
-            const canScroll = totalLogos > itemsToShow;
-
-            // === NUEVO: centrado automático si no hay scroll ===
-            if (type === 'afianzadoras') {
-                if (!canScroll) {
-                    carouselContainer.classList.add('center-content');
-                } else {
-                    carouselContainer.classList.remove('center-content');
-                }
-            }
-
-            if (!canScroll) {
-                prevLogoBtn.classList.add('hidden');
-                nextLogoBtn.classList.add('hidden');
-                logoTrack.style.transform = `translateX(0px)`;
-                return;
-            }
-
-            if (logoIndex > maxIndex) {
-                logoCarouselIndexes[type] = maxIndex;
-            }
-
-            const firstBox = logoBoxes[0];
-            const styles = window.getComputedStyle(firstBox);
-            const marginRight = parseFloat(styles.marginRight);
-            const marginLeft = parseFloat(styles.marginLeft);
-            const boxWidth = firstBox.offsetWidth + marginLeft + marginRight; 
-            
-            const offset = -logoCarouselIndexes[type] * boxWidth; 
-            logoTrack.style.transform = `translateX(${offset}px)`;
-
-            prevLogoBtn.classList.toggle('hidden', logoCarouselIndexes[type] === 0);
-            nextLogoBtn.classList.toggle('hidden', logoCarouselIndexes[type] >= maxIndex);
+        // El máximo índice al que se puede deslizar
+        const maxIndex = Math.max(0, totalLogos - itemsToShow);
+        const canScroll = totalLogos > itemsToShow;
+        
+        // CORRECCIÓN: Asegurar que el índice no exceda el límite al redimensionar
+        if (logoIndex > maxIndex) {
+             logoIndex = maxIndex;
+             logoCarouselIndexes[type] = maxIndex;
         }
 
-        nextLogoBtn.addEventListener('click', () => {
-            const itemsToShow = getLogosToShow();
-            const maxIndex = Math.max(0, totalLogos - itemsToShow);
-            if (logoCarouselIndexes[type] < maxIndex) {
-                logoCarouselIndexes[type]++;
-                updateLogoCarousel();
+        // === Centrado automático (solo afianzadoras si NO hay scroll) ===
+        if (type === 'afianzadoras') {
+            if (!canScroll && totalLogos > 0) { // Si no puede hacer scroll, céntralo
+                carouselContainer.classList.add('center-content');
+            } else {
+                carouselContainer.classList.remove('center-content');
             }
-        });
-
-        prevLogoBtn.addEventListener('click', () => {
-            if(logoCarouselIndexes[type] > 0) {
-                logoCarouselIndexes[type]--;
-                updateLogoCarousel();
-            }
-        });
-
-        updateLogoCarousel();
-        return updateLogoCarousel; 
-    }
-
-    const updateAseguradoras = initializeLogoCarousel('logoTrackAseguradoras', 'prevLogoBtnAseguradoras', 'nextLogoBtnAseguradoras', 'aseguradoras');
-    const updateAfianzadoras = initializeLogoCarousel('logoTrackAfianzadoras', 'prevLogoBtnAfianzadoras', 'nextLogoBtnAfianzadoras', 'afianzadoras');
-
-    const alliesTabButtons = document.querySelectorAll('.allies-tab-btn');
-    const alliesTabContents = document.querySelectorAll('.allies-tab-content');
-
-    function switchAlliesTab(targetId) {
-        alliesTabButtons.forEach(btn => btn.classList.remove('active'));
-        alliesTabContents.forEach(content => content.classList.remove('active-content'));
-
-        const targetBtn = document.querySelector(`.allies-tab-btn[data-target="${targetId}"]`);
-        const targetContent = document.getElementById(targetId);
-
-        if (targetBtn && targetContent) {
-            targetBtn.classList.add('active');
-            targetContent.classList.add('active-content');
-
-            if (targetId === 'aseguradoras' && updateAseguradoras) updateAseguradoras();
-            else if (targetId === 'afianzadoras' && updateAfianzadoras) updateAfianzadoras();
         }
-    }
 
-    alliesTabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            switchAlliesTab(btn.dataset.target);
-        });
+        if (!canScroll) {
+            // Si no se necesita scroll, ocultamos las flechas y reseteamos el transform
+            prevLogoBtn.classList.add('hidden');
+            nextLogoBtn.classList.add('hidden');
+            logoTrack.style.transform = `translateX(0px)`; 
+            return;
+        }
+
+        // Si se necesita scroll, calculamos el desplazamiento
+        prevLogoBtn.classList.remove('hidden');
+        nextLogoBtn.classList.remove('hidden');
+        
+        const firstBox = logoBoxes[0];
+        const styles = window.getComputedStyle(firstBox);
+        const marginRight = parseFloat(styles.marginRight);
+        const marginLeft = parseFloat(styles.marginLeft);
+        
+        // Ancho total de un elemento (incluye márgenes)
+        const boxWidth = firstBox.offsetWidth + marginLeft + marginRight; 
+        
+        // Aplicamos el desplazamiento basado en el logoIndex
+        const offset = -logoIndex * boxWidth; 
+        logoTrack.style.transform = `translateX(${offset}px)`;
+
+        // Control de visibilidad de las flechas
+        prevLogoBtn.classList.toggle('hidden', logoIndex === 0);
+        nextLogoBtn.classList.toggle('hidden', logoIndex >= maxIndex);
+    }
+    
+    // --- Event Listeners para la Navegación ---
+    nextLogoBtn.addEventListener('click', () => {
+        const itemsToShow = getLogosToShow();
+        const maxIndex = Math.max(0, totalLogos - itemsToShow);
+        if (logoCarouselIndexes[type] < maxIndex) {
+            logoCarouselIndexes[type]++;
+            updateLogoCarousel();
+        }
     });
 
-    switchAlliesTab('aseguradoras'); 
+    prevLogoBtn.addEventListener('click', () => {
+        if(logoCarouselIndexes[type] > 0) {
+            logoCarouselIndexes[type]--;
+            updateLogoCarousel();
+        }
+    });
 
-    window.addEventListener('resize', () => {
-        currentIndex = 0; 
-        updateCarousel();
+    updateLogoCarousel();
+    return updateLogoCarousel; 
+}
 
+const updateAseguradoras = initializeLogoCarousel('logoTrackAseguradoras', 'prevLogoBtnAseguradoras', 'nextLogoBtnAseguradoras', 'aseguradoras');
+const updateAfianzadoras = initializeLogoCarousel('logoTrackAfianzadoras', 'prevLogoBtnAfianzadoras', 'nextLogoBtnAfianzadoras', 'afianzadoras');
+
+const alliesTabButtons = document.querySelectorAll('.allies-tab-btn');
+const alliesTabContents = document.querySelectorAll('.allies-tab-content');
+
+function switchAlliesTab(targetId) {
+    alliesTabButtons.forEach(btn => btn.classList.remove('active'));
+    alliesTabContents.forEach(content => content.classList.remove('active-content'));
+
+    const targetBtn = document.querySelector(`.allies-tab-btn[data-target="${targetId}"]`);
+    const targetContent = document.getElementById(targetId);
+
+    if (targetBtn && targetContent) {
+        targetBtn.classList.add('active');
+        targetContent.classList.add('active-content');
+
+        // IMPORTANTE: Reseteamos el índice a 0 cada vez que cambiamos de pestaña
         logoCarouselIndexes.aseguradoras = 0;
         logoCarouselIndexes.afianzadoras = 0;
-        
-        const activeAlliesTab = document.querySelector('.allies-tab-btn.active');
-        if (activeAlliesTab) {
-            const activeId = activeAlliesTab.dataset.target;
-             if (activeId === 'aseguradoras' && updateAseguradoras) updateAseguradoras();
-             if (activeId === 'afianzadoras' && updateAfianzadoras) updateAfianzadoras();
-        }
-    });
 
+        if (targetId === 'aseguradoras' && updateAseguradoras) updateAseguradoras();
+        else if (targetId === 'afianzadoras' && updateAfianzadoras) updateAfianzadoras();
+    }
+}
+
+alliesTabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        switchAlliesTab(btn.dataset.target);
+    });
+});
+
+switchAlliesTab('aseguradoras'); 
+
+window.addEventListener('resize', () => {
+    // Estas líneas son para la sección de Servicios (no aliadas), las mantenemos.
+    currentIndex = 0; 
+    // updateCarousel(); 
+
+    // Mantenemos el índice a 0 para que no se desplace al girar el móvil.
+    logoCarouselIndexes.aseguradoras = 0;
+    logoCarouselIndexes.afianzadoras = 0;
+    
+    const activeAlliesTab = document.querySelector('.allies-tab-btn.active');
+    if (activeAlliesTab) {
+        const activeId = activeAlliesTab.dataset.target;
+         // Forzamos la actualización de la vista.
+         if (activeId === 'aseguradoras' && updateAseguradoras) updateAseguradoras();
+         if (activeId === 'afianzadoras' && updateAfianzadoras) updateAfianzadoras();
+    }
+});
 
     // =========================================================
     // === MENÚS VARIOS (REDES SOCIALES, ABOUT) ===
@@ -3446,6 +3472,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
