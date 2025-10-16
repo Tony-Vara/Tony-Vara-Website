@@ -2288,64 +2288,6 @@ border: -1;
         font-size: 1.8rem;
     }
 }
-
-  /* ========================================================= */
-/* === AJUSTES RESPONSIVE GENERALES PARA MÓVILES (600px o menos) === */
-/* ========================================================= */
-@media (max-width: 600px) {
-    
-    /* 1. HERO Y HEADER: El contenido del texto debe ocupar más espacio */
-    .hero-content {
-        width: 90% !important; /* El contenido del hero ocupa casi todo el ancho */
-        padding-top: 50px;
-    }
-    
-    /* 2. SOBRE NOSOTROS (ABOUT US): Apilamiento de columnas */
-    .about-flex {
-        flex-direction: column; /* Apila la imagen y el texto */
-    }
-    
-    /* Las cajas de texto e imagen ocupan todo el ancho */
-    .about-content, .about-image {
-        flex-basis: 100% !important; 
-        margin-bottom: 30px; /* Añade espacio entre la imagen y el texto */
-    }
-
-    /* 3. SERVICIOS (Corregido y Ajustado) */
-    .service-box {
-        flex: 0 0 100% !important; /* Obliga a las cajas a ocupar 100% */
-    }
-    
-    .services-carousel, #services h2, .tabs-control {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    
-    .tabs-control {
-        gap: 10px; 
-    }
-    
-    .tab-btn {
-        font-size: 0.9rem;
-    }
-    
-    /* 4. CLIENTES Y LOGOS: Reduce de 6 a 3 logos por fila */
-    .clients-grid {
-        grid-template-columns: repeat(3, 1fr) !important; 
-        gap: 20px;
-    }
-
-    /* 5. FOOTER: Reduce de 4 a 2 columnas por fila para mejor visualización */
-    #footer .container {
-        grid-template-columns: repeat(2, 1fr) !important; 
-        gap: 20px 10px;
-    }
-    
-    /* Ajustes generales de padding para que el contenido no se pegue tanto */
-    section {
-        padding: 40px 0;
-    }
-}
 </style>
 </head>
 <body>
@@ -3418,4 +3360,5 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
