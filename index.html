@@ -2128,7 +2128,7 @@ border: -1;
 
 @media (max-width: 768px) {
 
-  /* Contenedor principal: ocupar toda la pantalla en móvil */
+  /* Contenedor principal */
   #contact-highlight .contact-content-wrapper {
     display: flex !important;
     flex-direction: column !important;
@@ -2136,10 +2136,9 @@ border: -1;
     justify-content: flex-start !important; /* contenido arriba */
     gap: 20px !important;
     width: 100% !important;
-    min-height: 100vh !important; /* suficiente altura para todo */
     padding: 15px !important;
     box-sizing: border-box !important;
-    position: relative; /* necesario si algún elemento se posiciona relativo */
+    min-height: auto !important; /* contenedor ajustado al contenido */
   }
 
   /* Detalles de contacto */
@@ -2182,23 +2181,9 @@ border: -1;
     transform: none !important;
   }
 
-  /* Imagen abajo de todo */
+  /* Ocultar imagen en móviles */
   #contact-highlight .contact-image-placeholder {
-    order: 99 !important; /* siempre al final */
-    width: 80% !important;
-    max-width: 280px !important;
-    margin-top: auto !important; /* empuja hacia el fondo */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  #contact-highlight .contact-image-placeholder img {
-    width: 100% !important;
-    height: auto !important;
-    display: block !important;
-    transform: none !important;
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)) !important;
+    display: none !important;
   }
 
   /* Centrado del h2 "CONTACTAME" */
@@ -2207,6 +2192,7 @@ border: -1;
       text-align: center !important;
   }
 }
+
 
 /* RESPONSIVE: Dos columnas en pantallas grandes (Escritorio) */
 @media (min-width: 769px) {
@@ -3455,6 +3441,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
