@@ -2126,33 +2126,35 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
-/* RESPONSIVE: Ajustes para móvil (Todas las correcciones que funcionan en celular) */
+/* RESPONSIVE: Ajustes para móvil (Solución de Apilamiento) */
 @media (max-width: 768px) {
     
     /* 1. Centramos el contenedor de texto principal y le damos margen */
     .contact-details {
         text-align: center;
-        padding-left: 15px; /* Margen de seguridad */
-        padding-right: 15px; /* Margen de seguridad */
+        padding-left: 15px; 
+        padding-right: 15px; 
     }
 
-    /* 2. El contenedor de los botones se vuelve Flexbox para centrar y manejar el flujo */
+    /* 2. CONTENEDOR DE BOTONES: FORZAMOS APILAMIENTO VERTICAL */
     .contact-links-group {
-        display: flex; /* Asegura el comportamiento Flex */
-        justify-content: center; /* Centra los botones dentro del grupo */
-        gap: 10px; /* Espacio mínimo para que quepan uno al lado del otro */
+        display: flex;
+        flex-direction: column; /* CRÍTICO: Fuerza que los botones vayan uno sobre otro */
+        justify-content: center;
+        gap: 10px; /* Espacio vertical entre los botones */
         margin-bottom: 25px;
+        /* Le damos un ancho fijo para que no se pegue a los bordes */
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    /* 3. Ajustamos los botones principales para que puedan reducirse y crecer */
+    /* 3. Ajustamos los botones principales */
     .main-contact-link-v2, .secondary-contact-link-v2 {
-        padding: 10px 10px; /* Reducción máxima del padding para ahorrar espacio */
-        font-size: 0.85rem; /* Reducción máxima del tamaño de fuente (el más seguro) */
-        
-        /* Permitimos que se encojan (shrink) si es necesario, pero manteniendo la proporción (grow) */
-        flex-grow: 1; 
-        flex-shrink: 1; 
-        flex-basis: 0; /* Permite a los navegadores calcular mejor el ancho compartido */
+        padding: 12px 15px; /* Más espacio vertical para que se vean bien */
+        font-size: 1rem; /* Devolvemos el tamaño de fuente a un valor legible */
+        width: 100%; /* El botón ocupa todo el ancho del contenedor (85% de la pantalla) */
+        justify-content: center; /* Centra el texto dentro del botón */
     }
     
     /* 4. Centramos los íconos de redes sociales */
@@ -3414,6 +3416,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
