@@ -2241,9 +2241,17 @@ border: -1;
     .contact-image-placeholder {
         width: 350px;
         margin-left: 30px;
+        display: flex;             /* Habilita Flexbox */
+        flex-direction: column;    /* Permite alinear verticalmente */
+        justify-content: flex-end; /* Pega la imagen al borde inferior */
+        height: 100%;              /* Ocupa la altura completa de la fila */
+        padding-top: 20px;         /* Espacio superior para que no se corte */
     }
+    
     .contact-image-placeholder img {
         margin-left: 0;
+        /* Aseguramos que la imagen no tenga un desplazamiento 'transform' */
+        transform: none !important; 
     }
 }
   
@@ -3472,6 +3480,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
