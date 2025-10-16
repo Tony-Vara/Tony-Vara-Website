@@ -2129,8 +2129,9 @@ border: -1;
 /* === CORRECCIÓN DEFINITIVA Y CENTRADO PRECISO SECCIÓN CONTACTO EN MÓVIL === */
 @media (max-width: 768px) {
 
-  /* Forzar apilamiento */
+  /* Forzar apilamiento del contenedor principal */
   #contact-highlight .contact-content-wrapper {
+    display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2142,7 +2143,7 @@ border: -1;
     box-sizing: border-box !important;
   }
 
-  /* Centrar texto */
+  /* Centrar detalles de contacto */
   #contact-highlight .contact-details {
     text-align: center !important;
     width: 100% !important;
@@ -2183,7 +2184,7 @@ border: -1;
     justify-content: center !important;
   }
 
-  /* === Centrado fino de títulos y "¡Contáctame!" === */
+  /* Centrado fino de títulos y "¡Contáctame!" */
   #contact-highlight .contact-title,
   #contact-highlight .contact-action-emphasis {
     display: block !important;
@@ -2199,11 +2200,15 @@ border: -1;
     margin-bottom: 10px !important;
     font-size: 2.9rem !important;
     letter-spacing: 0.3px !important;
-    transform: none !important; /* quita el desplazamiento lateral */
+    transform: none !important; /* quita desplazamiento lateral */
+  }
+
+  /* === AJUSTE FINAL: Centrar específicamente "CONTACTAME" === */
+  #contact-highlight .contact-content-wrapper h2 {
+      width: 100% !important;
+      text-align: center !important;
   }
 }
-
-
 
 /* RESPONSIVE: Dos columnas en pantallas grandes (Escritorio) */
 @media (min-width: 769px) {
@@ -3452,6 +3457,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
