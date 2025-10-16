@@ -2126,40 +2126,35 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
+/* RESPONSIVE: Ajustes para móvil (Solución de Apilamiento) */
 @media (max-width: 768px) {
     
-    /* 1. Limitamos el ancho del texto y aseguramos padding */
+    /* 1. Centramos el contenedor de texto principal y le damos margen */
     .contact-details {
         text-align: center;
-        /* Limita el ancho del texto a un 90% para evitar que se pegue */
-        max-width: 90%; 
-        margin: 0 auto;
-        padding: 0 10px; /* Margen interno de seguridad */
+        padding-left: 15px; 
+        padding-right: 15px; 
     }
-    
-    /* 2. El contenedor de los botones principales */
+
+    /* 2. CONTENEDOR DE BOTONES: FORZAMOS APILAMIENTO VERTICAL */
     .contact-links-group {
-        display: flex; 
-        justify-content: center; 
-        gap: 10px;
+        display: flex;
+        flex-direction: column; /* CRÍTICO: Fuerza que los botones vayan uno sobre otro */
+        justify-content: center;
+        gap: 10px; /* Espacio vertical entre los botones */
         margin-bottom: 25px;
-        
-        /* Aseguramos que el contenedor de los botones no sea más grande que el contenedor principal */
-        max-width: 100%; 
+        /* Le damos un ancho fijo para que no se pegue a los bordes */
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    /* 3. Ajuste crucial de los botones para que el texto quepa en una sola línea */
+    /* 3. Ajustamos los botones principales */
     .main-contact-link-v2, .secondary-contact-link-v2 {
-        padding: 10px 10px; 
-        /* Reducción mínima, pero segura del tamaño de fuente */
-        font-size: 0.8rem; /* ¡El valor más bajo y seguro! */
-        
-        /* Flex-shrink: 1 permite que se encojan si es necesario */
-        flex-shrink: 1; 
-        /* Oculta cualquier texto que se desborde (prevención de último recurso) */
-        overflow: hidden; 
-        text-overflow: ellipsis; 
-        white-space: nowrap; 
+        padding: 12px 15px; /* Más espacio vertical para que se vean bien */
+        font-size: 1rem; /* Devolvemos el tamaño de fuente a un valor legible */
+        width: 100%; /* El botón ocupa todo el ancho del contenedor (85% de la pantalla) */
+        justify-content: center; /* Centra el texto dentro del botón */
     }
     
     /* 4. Centramos los íconos de redes sociales */
@@ -2168,6 +2163,7 @@ border: -1;
         margin-bottom: 20px;
     }
     
+    /* Restablecemos el texto de las redes sociales por si fue afectado */
     .social-text {
         text-align: center;
     }
@@ -3420,6 +3416,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
