@@ -2126,7 +2126,6 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
-/* === CORRECCIÓN DEFINITIVA Y CENTRADO PRECISO SECCIÓN CONTACTO EN MÓVIL === */
 @media (max-width: 768px) {
 
   /* Forzar apilamiento del contenedor principal */
@@ -2141,9 +2140,10 @@ border: -1;
     margin: 0 auto !important;
     padding: 0 15px !important;
     box-sizing: border-box !important;
+    max-height: 95% !important; /* Contenedor un poco más chaparro */
   }
 
-  /* Centrar detalles de contacto */
+  /* Centrado detalles de contacto */
   #contact-highlight .contact-details {
     text-align: center !important;
     width: 100% !important;
@@ -2151,12 +2151,12 @@ border: -1;
     margin: 0 auto !important;
   }
 
-  /* Imagen centrada y visible */
+  /* Imagen centrada y un poco más abajo */
   #contact-highlight .contact-image-placeholder {
     order: -1 !important; /* Imagen arriba del texto */
     width: 80% !important;
     max-width: 280px !important;
-    margin: 0 auto 15px auto !important;
+    margin: 20px auto 25px auto !important; /* más abajo */
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2200,15 +2200,17 @@ border: -1;
     margin-bottom: 10px !important;
     font-size: 2.9rem !important;
     letter-spacing: 0.3px !important;
-    transform: none !important; /* quita desplazamiento lateral */
+    transform: translateX(-2px) !important; /* un poquitito a la izquierda */
   }
 
   /* === AJUSTE FINAL: Centrar específicamente "CONTACTAME" === */
   #contact-highlight .contact-content-wrapper h2 {
       width: 100% !important;
       text-align: center !important;
+      transform: translateX(-2px); /* mismo ajuste fino que arriba */
   }
 }
+
 
 /* RESPONSIVE: Dos columnas en pantallas grandes (Escritorio) */
 @media (min-width: 769px) {
@@ -3457,6 +3459,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
