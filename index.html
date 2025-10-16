@@ -2126,7 +2126,7 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
-/* === CORRECCIÓN DEFINITIVA SECCIÓN CONTACTO EN MÓVIL === */
+/* === CORRECCIÓN DEFINITIVA Y CENTRADO PRECISO SECCIÓN CONTACTO EN MÓVIL === */
 @media (max-width: 768px) {
 
   /* Forzar apilamiento */
@@ -2155,7 +2155,7 @@ border: -1;
     order: -1 !important; /* Imagen arriba del texto */
     width: 80% !important;
     max-width: 280px !important;
-    margin: 0 auto 10px auto !important;
+    margin: 0 auto 15px auto !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -2182,15 +2182,27 @@ border: -1;
     width: 100% !important;
     justify-content: center !important;
   }
-    #contact-highlight .contact-action-emphasis {
+
+  /* === Centrado fino de títulos y "¡Contáctame!" === */
+  #contact-highlight .contact-title,
+  #contact-highlight .contact-action-emphasis {
     display: block !important;
-    text-align: center !important;
     width: 100% !important;
-    margin: 0 auto 10px auto !important;
+    text-align: center !important;
+    margin: 0 auto !important;
     line-height: 1.1 !important;
-    transform: translateX(2px); /* mueve un pelito para centrar ópticamente */
+  }
+
+  /* Ajuste visual del ¡Contáctame! */
+  #contact-highlight .contact-action-emphasis {
+    margin-top: 8px !important;
+    margin-bottom: 10px !important;
+    font-size: 2.9rem !important;
+    letter-spacing: 0.3px !important;
+    transform: none !important; /* quita el desplazamiento lateral */
   }
 }
+
 
 
 /* RESPONSIVE: Dos columnas en pantallas grandes (Escritorio) */
@@ -3440,6 +3452,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
