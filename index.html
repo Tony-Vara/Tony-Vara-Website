@@ -1969,11 +1969,11 @@ border: -1;
 #contact-highlight {
     background: linear-gradient(135deg, #005aab, #004d99);  
     color: #fff;
-    padding: 10px 5px;
+    padding: 40px 5px; /* Ajuste para reducir altura en PC */
     text-align: center;
     border-radius: 25px;
     margin: 60px auto;
-    max-width: 750px;
+    max-width: 750px; /* Ajuste para reducir ancho en PC */
     box-shadow: 0 20px 60px rgba(0, 51, 102, 0.25);
     overflow: hidden;
 }
@@ -2066,7 +2066,8 @@ border: -1;
 
 .contact-links-group {
     margin-bottom: 20px;
-    gap: 30px; 
+    /* CORRECCIÓN: Aumenta el espacio entre botones en PC */
+    gap: 40px; 
     display: flex;
     justify-content: center;
 }
@@ -2112,7 +2113,8 @@ border: -1;
 
 .contact-icons-v2 {
     display: flex;
-    justify-content: center;
+    /* CORREGIDO: Por defecto está centrado, si lo cambiaste en otro lado, esto lo fija */
+    justify-content: center; 
 }
 .contact-icons-v2 a {
     color: #fff;
@@ -2125,24 +2127,25 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
+/* RESPONSIVE: Ajustes para móvil */
 @media (max-width: 768px) {
     
     /* Centra el contenedor de los botones grandes y ajusta su tamaño */
     .contact-links-group {
         justify-content: center; 
-        gap: 10px; /* Reducimos el espacio entre botones */
+        gap: 10px; /* Espacio reducido para móvil */
         margin-bottom: 25px; 
     }
     
     /* Hacemos los botones de Llamar/Gmail más pequeños */
     .main-contact-link-v2, .secondary-contact-link-v2 {
-        padding: 10px 15px; /* Reducimos el padding interior */
-        font-size: 0.9rem;  /* Reducimos el tamaño de la fuente */
+        padding: 10px 15px; 
+        font-size: 0.9rem;  
     }
     
     /* Ajustamos el ícono dentro de los botones */
     .main-contact-link-v2 i, .secondary-contact-link-v2 i {
-        margin-right: 5px; /* Reducimos el margen del ícono */
+        margin-right: 5px; 
         font-size: 1.0rem;
     }
     
@@ -2155,6 +2158,50 @@ border: -1;
     /* Centramos el texto de los detalles de contacto que se heredan del contenedor padre */
     .contact-details {
         text-align: center;
+    }
+}
+
+/* RESPONSIVE: Dos columnas en pantallas grandes (Escritorio) */
+@media (min-width: 769px) {
+    .contact-content-wrapper {
+        flex-direction: row;
+        justify-content: center;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .contact-details {
+        text-align: left;
+        margin-left: -15px;
+        max-width: 55%;
+        flex: 1;
+    }
+
+    .contact-links-group {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+        justify-content: flex-start;
+    }
+
+    .main-contact-link-v2, .secondary-contact-link-v2 {
+        display: inline-flex;
+        margin: 0;
+    }
+
+    .contact-icons-v2 {
+        display: flex;
+        /* CORRECCIÓN: Centra los íconos horizontalmente en PC */
+        justify-content: center; 
+        margin-bottom: 20px;
+    }
+
+    .contact-image-placeholder {
+        width: 350px;
+        margin-left: 30px;
+    }
+    .contact-image-placeholder img {
+        margin-left: 0;
     }
 }
   
@@ -3362,6 +3409,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
