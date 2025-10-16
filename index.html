@@ -2134,11 +2134,11 @@ border: -1;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important; /* contenido arriba */
-    gap: 20px !important;
+    gap: 15px !important;
     width: 100% !important;
-    padding: 15px !important;
+    padding: 20px 15px !important;
     box-sizing: border-box !important;
-    min-height: auto !important; /* contenedor ajustado al contenido */
+    min-height: auto !important; /* altura ajustada al contenido */
   }
 
   /* Detalles de contacto */
@@ -2181,15 +2181,20 @@ border: -1;
     transform: none !important;
   }
 
-  /* Ocultar imagen en móviles */
-  #contact-highlight .contact-image-placeholder {
+  /* Ocultar imagen completamente en móviles */
+  #contact-highlight .contact-image-placeholder,
+  #contact-highlight .contact-image-placeholder img {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
   }
 
   /* Centrado del h2 "CONTACTAME" */
   #contact-highlight .contact-content-wrapper h2 {
-      width: 100% !important;
-      text-align: center !important;
+    width: 100% !important;
+    text-align: center !important;
   }
 }
 
@@ -3441,6 +3446,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
