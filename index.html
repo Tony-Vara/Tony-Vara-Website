@@ -2126,47 +2126,51 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
-/* RESPONSIVE: Ajustes para móvil (Solución de Apilamiento) */
+/* === CORRECCIÓN DE SECCIÓN DE CONTACTO EN MÓVIL === */
 @media (max-width: 768px) {
-    
-    /* 1. Centramos el contenedor de texto principal y le damos margen */
-    .contact-details {
-        text-align: center;
-        padding-left: 15px; 
-        padding-right: 15px; 
-    }
+  /* Apila el contenido (imagen y texto) en columna */
+  .contact-content-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 25px !important;
+  }
 
-    /* 2. CONTENEDOR DE BOTONES: FORZAMOS APILAMIENTO VERTICAL */
-    .contact-links-group {
-        display: flex;
-        flex-direction: column; /* CRÍTICO: Fuerza que los botones vayan uno sobre otro */
-        justify-content: center;
-        gap: 10px; /* Espacio vertical entre los botones */
-        margin-bottom: 25px;
-        /* Le damos un ancho fijo para que no se pegue a los bordes */
-        width: 85%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    /* 3. Ajustamos los botones principales */
-    .main-contact-link-v2, .secondary-contact-link-v2 {
-        padding: 12px 15px; /* Más espacio vertical para que se vean bien */
-        font-size: 1rem; /* Devolvemos el tamaño de fuente a un valor legible */
-        width: 100%; /* El botón ocupa todo el ancho del contenedor (85% de la pantalla) */
-        justify-content: center; /* Centra el texto dentro del botón */
-    }
-    
-    /* 4. Centramos los íconos de redes sociales */
-    .contact-icons-v2 {
-        justify-content: center; 
-        margin-bottom: 20px;
-    }
-    
-    /* Restablecemos el texto de las redes sociales por si fue afectado */
-    .social-text {
-        text-align: center;
-    }
+  /* Centra y ajusta el texto */
+  .contact-details {
+    text-align: center !important;
+    padding: 0 15px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Asegura que la imagen se vea correctamente */
+  .contact-image-placeholder {
+    width: 70% !important; /* se ajusta al ancho del móvil */
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .contact-image-placeholder img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    transform: none !important;
+  }
+
+  /* Ajuste de botones para mantenerlos centrados */
+  .contact-links-group {
+    flex-direction: column !important;
+    width: 90% !important;
+    margin: 0 auto 20px auto !important;
+  }
+
+  .main-contact-link-v2, .secondary-contact-link-v2 {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
 
 /* RESPONSIVE: Dos columnas en pantallas grandes (Escritorio) */
@@ -3416,6 +3420,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
