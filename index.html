@@ -2124,49 +2124,39 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
-/* RESPONSIVE: Dos columnas en pantallas grandes */
-@media (min-width: 769px) {
-    .contact-content-wrapper {
-        flex-direction: row;
-        justify-content: center;
-        gap: 60px;
-        align-items: center;
-    }
-
-    .contact-details {
-        text-align: left;
-        margin-left: -15px;
-        max-width: 55%;
-        flex: 1;
-    }
-
+@media (max-width: 768px) {
+    
+    /* Centra el contenedor de los botones grandes y ajusta su tamaño */
     .contact-links-group {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 30px;
-        justify-content: flex-start;
+        justify-content: center; 
+        gap: 10px; /* Reducimos el espacio entre botones */
+        margin-bottom: 25px; 
     }
-
+    
+    /* Hacemos los botones de Llamar/Gmail más pequeños */
     .main-contact-link-v2, .secondary-contact-link-v2 {
-        display: inline-flex;
-        margin: 0;
+        padding: 10px 15px; /* Reducimos el padding interior */
+        font-size: 0.9rem;  /* Reducimos el tamaño de la fuente */
     }
-
+    
+    /* Ajustamos el ícono dentro de los botones */
+    .main-contact-link-v2 i, .secondary-contact-link-v2 i {
+        margin-right: 5px; /* Reducimos el margen del ícono */
+        font-size: 1.0rem;
+    }
+    
+    /* Centramos el grupo de íconos de redes sociales */
     .contact-icons-v2 {
-        display: flex;
-        justify-content: flex-start;
+        justify-content: center; 
         margin-bottom: 20px;
     }
-
-    .contact-image-placeholder {
-        width: 350px;
-        margin-left: 30px;
-    }
-    .contact-image-placeholder img {
-        margin-left: 0;
+    
+    /* Centramos el texto de los detalles de contacto que se heredan del contenedor padre */
+    .contact-details {
+        text-align: center;
     }
 }
-
+  
 /* =====================================
    PIE DE PÁGINA (FOOTER)
 ===================================== */
@@ -3371,6 +3361,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
