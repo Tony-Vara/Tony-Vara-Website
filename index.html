@@ -1969,11 +1969,12 @@ border: -1;
 #contact-highlight {
     background: linear-gradient(135deg, #005aab, #004d99);  
     color: #fff;
-    padding: 40px 5px; /* Ajuste para reducir altura en PC */
+    /* Dejamos el padding y max-width como estaba originalmente para PC: */
+    padding: 10px 5px; 
     text-align: center;
     border-radius: 25px;
     margin: 60px auto;
-    max-width: 900px; /* Ajuste para reducir ancho en PC */
+    max-width: 900px; 
     box-shadow: 0 20px 60px rgba(0, 51, 102, 0.25);
     overflow: hidden;
 }
@@ -1985,8 +1986,7 @@ border: -1;
 
 .contact-content-wrapper {
     display: flex;
-    /* CORRECCIÓN CRÍTICA: Se ELIMINA 'flex-direction: column;' de aquí. */
-    /* Ahora, el móvil usará 'column' (por defecto) y PC usará 'row' (por media query). */
+    /* CORRECCIÓN CRÍTICA: Quitamos el 'flex-direction: column;' de aquí para que PC use 'row' */
     align-items: center;
     gap: 40px;
     max-width: 90%;
@@ -2067,8 +2067,7 @@ border: -1;
 
 .contact-links-group {
     margin-bottom: 20px;
-    /* Aumento de separación en PC */
-    gap: 40px; 
+    gap: 30px; /* Separación original para PC */
     display: flex;
     justify-content: center;
 }
@@ -2114,7 +2113,7 @@ border: -1;
 
 .contact-icons-v2 {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
 .contact-icons-v2 a {
     color: #fff;
@@ -2127,7 +2126,7 @@ border: -1;
     transform: translateY(-2px) scale(1.1);
 }
 
-/* RESPONSIVE: Ajustes para móvil */
+/* RESPONSIVE: Ajustes para móvil (Todas las correcciones que funcionan en celular) */
 @media (max-width: 768px) {
     
     /* Centra el contenedor de los botones grandes y ajusta su tamaño */
@@ -3408,6 +3407,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
