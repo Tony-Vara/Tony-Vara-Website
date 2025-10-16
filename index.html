@@ -213,13 +213,8 @@ a {
     top: var(--header-height); 
     display: block; 
 }
-
 /* ========================================================= */
 /* === AJUSTE DE MENÚ HAMBURGUESA (RESPONSIVE) - CORRECCIÓN FINAL === */
-/* ========================================================= */
-
-/* ========================================================= */
-/* === AJUSTE DE MENÚ HAMBURGUESA (RESPONSIVE) - ANULACIÓN FINAL === */
 /* ========================================================= */
 
 @media (max-width: 1024px) {
@@ -245,7 +240,7 @@ a {
     top: var(--header-height); 
 }
 
-/* Menú móvil deslizable */
+/* Menú móvil deslizable (Estado Inicial - Fuera de pantalla) */
 .allies-bar .main-nav {
     position: fixed;
     top: 0; 
@@ -259,8 +254,9 @@ a {
     overflow-y: auto;
 }
 
-/* Estado abierto */
-.allies-bar .main-nav.is-open {
+/* Estado abierto - CORRECCIÓN CLAVE */
+/* El JavaScript aplica la clase 'is-open' al elemento .main-nav */
+.main-nav.is-open { 
     right: 0; 
 }
 
@@ -277,7 +273,7 @@ a {
         list-style: none !important;
         height: auto !important;
         width: 100% !important;
-        overflow: visible !important; /* Muy importante si algo lo estaba ocultando */
+        overflow: visible !important; 
     }
     
     .allies-bar .main-nav li {
@@ -3360,5 +3356,6 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
