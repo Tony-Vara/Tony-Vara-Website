@@ -2132,14 +2132,23 @@ border: -1;
     /* Centra el contenedor de los botones grandes y ajusta su tamaño */
     .contact-links-group {
         justify-content: center; 
-        gap: 10px; /* Espacio reducido para móvil */
+        gap: 10px; /* Espacio mínimo para que quepan */
         margin-bottom: 25px; 
+        /* Eliminamos width: 90%; para que Flexbox lo maneje */
+        /* Mantenemos display: flex; y quitamos flex-direction: column; */
     }
     
-    /* Hacemos los botones de Llamar/Gmail más pequeños */
+    /* Hacemos los botones de Llamar/Gmail más pequeños y flexibles para que quepan */
     .main-contact-link-v2, .secondary-contact-link-v2 {
-        padding: 10px 15px; 
+        /* Reducimos el padding horizontal a 10px (mínimo seguro) */
+        padding: 10px 10px; 
+        /* Reducimos el tamaño de la fuente para que el texto NO se corte */
         font-size: 0.9rem;  
+        
+        /* Flex-shrink: 0 evita que el botón se comprima más de lo necesario */
+        flex-shrink: 0; 
+        /* Flex-grow: 1 permite que usen el espacio equitativamente */
+        flex-grow: 1; 
     }
     
     /* Ajustamos el ícono dentro de los botones */
@@ -2154,9 +2163,11 @@ border: -1;
         margin-bottom: 20px;
     }
     
-    /* Centramos el texto de los detalles de contacto que se heredan del contenedor padre */
+    /* Centramos el texto de los detalles de contacto y añadimos padding lateral */
     .contact-details {
         text-align: center;
+        padding-left: 10px; /* Añade un pequeño margen para que el texto no se pegue */
+        padding-right: 10px;
     }
 }
 
@@ -3407,6 +3418,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
