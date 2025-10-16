@@ -915,6 +915,12 @@ max-width: 480px; /* Ancho más compacto para el formulario */
         text-align: center;
         /* Quitamos el padding top de compensación en móvil */
         padding-top: 0; 
+        
+        /* === CORRECCIÓN CRÍTICA PARA ESPACIADO LATERAL === */
+        /* Asegura un margen interior de 15px a los lados */
+        padding-left: 15px;
+        padding-right: 15px; 
+        box-sizing: border-box; /* CLAVE para evitar que el padding cause desbordamiento */
     }
     #hero-content h1 {
         font-size: 2.5rem;
@@ -3356,6 +3362,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
