@@ -2481,16 +2481,16 @@ border: -1;
     
     <form id="quoteForm">
       <label for="firstName"><strong>Nombre</strong></label>
-      <input type="text" id="firstName" name="Nombre" placeholder="Ingresa tu nombre" required>
+      <input type="text" id="firstName" name="Nombre" placeholder="Ingresa tu nombre" maxlength="35" required>
 
       <label for="lastName"><strong>Apellidos</strong></label>
-      <input type="text" id="lastName" name="Apellidos" placeholder="Ingresa tus apellidos" required>
+      <input type="text" id="lastName" name="Apellidos" placeholder="Ingresa tus apellidos" maxlength="50" required>
 
       <label for="email"><strong>Correo electrónico</strong></label>
-      <input type="email" id="email" name="Correo" placeholder="ejemplo@correo.com" required>
+      <input type="email" id="email" name="Correo" placeholder="ejemplo@correo.com" maxlength="100" required>
 
       <label for="phone"><strong>Número de teléfono</strong></label>
-      <input type="tel" id="phone" name="Telefono" placeholder="Ej. 55 1234 5678" required>
+      <input type="tel" id="phone" name="Telefono" placeholder="Ej. 55 1234 5678" maxlength="20" required>
 
       <label for="insuranceType"><strong>¿Qué tipo de seguro te interesa?</strong></label>
       <select id="insuranceType" name="TipoSeguro" required>
@@ -3493,6 +3493,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
