@@ -2490,7 +2490,7 @@ border: -1;
       <input type="email" id="email" name="Correo" placeholder="ejemplo@correo.com" maxlength="100" required>
 
       <label for="phone"><strong>Número de teléfono</strong></label>
-      <input type="tel" id="phone" name="Telefono" placeholder="Ej. 55 1234 5678" maxlength="20" pattern="^[\+]?[0-9\s-]{8,20}$" required>
+      <input type="tel" id="phone" name="Telefono" placeholder="Ej. 55 1234 5678" maxlength="20" pattern="^[\+]?[0-9\s-]{8,15}$" onkeydown="return isPhoneNumberKey(event)" required>
 
       <label for="insuranceType"><strong>¿Qué tipo de seguro te interesa?</strong></label>
       <select id="insuranceType" name="TipoSeguro" required>
@@ -3147,6 +3147,39 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+  function isPhoneNumberKey(event) {
+    const key = event.key;
+    const isControlKey = event.ctrlKey || event.metaKey || event.altKey;
+
+    // 1. Permitir teclas de control: Backspace, Tab, Delete, Flechas, Inicio/Fin
+    if (event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 46 || 
+        (event.keyCode >= 35 && event.keyCode <= 40) || isControlKey) {
+        return true;
+    }
+
+    // 2. Permitir dígitos (teclado principal y numérico)
+    if (/[0-9]/.test(key)) {
+        return true;
+    }
+
+    // 3. Permitir caracteres comunes en teléfonos: +, -, espacio
+    if (key === '+' || key === '-' || key === ' ') {
+        // Lógica adicional para asegurar que el '+' solo esté al inicio
+        if (key === '+') {
+            const input = event.target;
+            // Solo permitir '+' si es el primer carácter y aún no existe un '+'
+            if (input.selectionStart !== 0 || input.value.includes('+')) {
+                return false; 
+            }
+        }
+        return true;
+    }
+
+    // Bloquear cualquier otra tecla (letras, símbolos, etc.)
+    event.preventDefault();
+    return false;
+}
+
     // =========================================================
     // === BLOQUE 1: PESTAÑAS Y CARRUSEL COMBINADO (SERVICIOS) ===
     // =========================================================
@@ -3493,6 +3526,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
