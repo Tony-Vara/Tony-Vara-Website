@@ -2490,7 +2490,7 @@ border: -1;
       <input type="email" id="email" name="Correo" placeholder="ejemplo@correo.com" maxlength="100" required>
 
       <label for="phone"><strong>Número de teléfono</strong></label>
-      <input type="tel" id="phone" name="Telefono" placeholder="Ej. 55 1234 5678" maxlength="20" pattern="^[\+]?[0-9\s-]{8,15}$" onkeydown="return isPhoneNumberKey(event)" required>
+      <input type="tel" id="phone" name="Telefono" placeholder="Ej. +52 844 123 4567" maxlength="20" pattern="^[\+]?[0-9\s-]{8,20}$" required>
 
       <label for="insuranceType"><strong>¿Qué tipo de seguro te interesa?</strong></label>
       <select id="insuranceType" name="TipoSeguro" required>
@@ -3018,6 +3018,14 @@ document.addEventListener('DOMContentLoaded', function () {
         else header.classList.remove('scrolled');
     });
 
+    // ENLACE DIRECTO DEL EVENTO PARA EL CAMPO DE TELÉFONO
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        // Enlaza la función de restricción (definida más abajo) al evento keydown
+        phoneInput.addEventListener('keydown', isPhoneNumberKey);
+    }
+    
+    // ...
     // ---------- MODALES ----------
     const headerQuoteBtn = document.getElementById('quoteBtn'); 
     const heroQuoteBtn = document.getElementById('heroQuoteBtn');
@@ -3526,6 +3534,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
