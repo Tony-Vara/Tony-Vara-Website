@@ -336,6 +336,29 @@ a {
     }
 }
 
+  /* Altura por defecto (ESCRITORIO) - Se ajusta al var(--header-height: 80px) */
+.logo img {
+    /* La altura adecuada para que no se salga del header-height (80px) */
+    height: 70px; 
+    width: auto;
+    max-height: 100%; 
+    transition: height 0.3s;
+}
+
+/* REGISTRO RESPONSIVO: Aplicar solo en celular */
+@media (max-width: 768px) {
+    /* Altura más pequeña y limpia para móvil */
+    .logo img {
+        height: 45px; 
+    }
+    
+    /* Asegurar que el header no sea muy alto */
+    .main-header {
+        height: 60px; /* Reducir de 80px a 60px en móvil es una buena práctica */
+        padding: 5px var(--spacing-small);
+    }
+}
+
 /* ========================================================= */
 /* === AJUSTES DE LA BARRA AZUL (Navegación + Redes) - ESCRITORIO === */
 /* ========================================================= */
@@ -2425,7 +2448,7 @@ border: -1;
         <div class="header-content">
             
             <a href="#hero" class="logo">
-                <img src="LOGO VECTORIZADO INKSC.svg" style="height: 85px;">
+                <img src="LOGO VECTORIZADO INKSC.svg"
             </a>
             
             <div class="header-actions"> 
@@ -3546,6 +3569,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
