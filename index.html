@@ -336,29 +336,42 @@ a {
     }
 }
 
-  /* Altura por defecto (ESCRITORIO) - Se ajusta al var(--header-height: 80px) */
-.logo img {
-    /* La altura adecuada para que no se salga del header-height (80px) */
-    height: 70px; 
+ /* Dentro de tu bloque de estilos */
+
+/* Oculta la versión de ícono por defecto (Escritorio) */
+.logo-icon {
+    display: none; 
+}
+
+/* Muestra y dimensiona la versión con nombre (Escritorio) */
+.logo-full {
+    height: 70px; /* Tamaño para que se vea bien en PC */
     width: auto;
-    max-height: 100%; 
+    max-height: 100%;
     transition: height 0.3s;
 }
 
-/* REGISTRO RESPONSIVO: Aplicar solo en celular */
+  /* AJUSTE RESPONSIVO: Aplicar solo en celular (768px o menos) */
 @media (max-width: 768px) {
-    /* Altura más pequeña y limpia para móvil */
-    .logo img {
-        height: 45px; 
+    /* Oculta la versión con nombre en celular */
+    .logo-full {
+        display: none;
+    }
+    
+    /* Muestra la versión de ícono en celular y la dimensiona */
+    .logo-icon {
+        display: block; /* Vuelve visible el logo de ícono */
+        height: 45px; /* Altura ideal para móvil */
+        width: auto;
     }
     
     /* Asegurar que el header no sea muy alto */
     .main-header {
-        height: 60px; /* Reducir de 80px a 60px en móvil es una buena práctica */
+        height: 60px;
         padding: 5px var(--spacing-small);
     }
 }
-
+  
 /* ========================================================= */
 /* === AJUSTES DE LA BARRA AZUL (Navegación + Redes) - ESCRITORIO === */
 /* ========================================================= */
@@ -2448,7 +2461,9 @@ border: -1;
         <div class="header-content">
             
             <a href="#hero" class="logo">
-                <img src="LOGO VECTORIZADO INKSC.svg"
+                <img src="LOGO VECTORIZADO INKSC.svg" class="logo-full">
+    
+    <img src="logo vectorizado movil.svg" class="logo-icon">
             </a>
             
             <div class="header-actions"> 
@@ -3569,6 +3584,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
