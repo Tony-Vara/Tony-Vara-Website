@@ -336,21 +336,6 @@ a {
     }
 }
 
- /* Dentro de tu bloque de estilos */
-
-/* Oculta la versión de ícono por defecto (Escritorio) */
-.logo-icon {
-    display: none; 
-}
-
-/* Muestra y dimensiona la versión con nombre (Escritorio) */
-.logo-full {
-    height: 70px; /* Tamaño para que se vea bien en PC */
-    width: auto;
-    max-height: 100%;
-    transition: height 0.3s;
-}
-  
 /* ========================================================= */
 /* === AJUSTES DE LA BARRA AZUL (Navegación + Redes) - ESCRITORIO === */
 /* ========================================================= */
@@ -2440,9 +2425,7 @@ border: -1;
         <div class="header-content">
             
             <a href="#hero" class="logo">
-                <img src="LOGO VECTORIZADO INKSC.svg" class="logo-full">
-    
-    <img src="logo sin fondo vectorizado.svg" class="logo-icon">
+                <img src="LOGO VECTORIZADO INKSC.svg" style="height: 85px;">
             </a>
             
             <div class="header-actions"> 
@@ -3563,13 +3546,6 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
 
 
 
