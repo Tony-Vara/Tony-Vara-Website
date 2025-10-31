@@ -153,6 +153,17 @@ a {
     white-space: nowrap;
 }
 
+  /* Añade esto en la sección "2. HEADER Y BARRA DE ALIADOS" */
+.logo-icon {
+    display: none; /* OCULTAR LOGO DE ÍCONO POR DEFECTO */
+}
+
+.logo-full {
+    height: 75px; /* TAMAÑO PARA PC */
+    width: auto;
+    max-height: 100%;
+}
+
 .header-actions {
     display: flex;
     align-items: center;
@@ -234,6 +245,32 @@ a {
 /* ========================================================= */
 
 @media (max-width: 1024px) {
+    
+    /* 1. Mover el logo a la izquierda en celular */
+    .header-content {
+        padding-left: 5px; /* Pegado casi al borde en móvil */
+        padding-right: 20px;
+    }
+    
+    /* 2. Dimensionamiento y Visibilidad de los Logos */
+    
+    /* OCULTAR Logo Grande (Desktop) */
+    .logo-full {
+        display: none !important;
+    }
+    
+    /* MOSTRAR y dimensionar Logo de Ícono (Móvil) */
+    .logo-icon {
+        display: block !important; 
+        height: 55px; /* Tamaño del ícono en móvil (GRANDESITO) */
+        width: auto;
+    }
+    
+    /* 3. Ajustamos el header para que quepa el logo de 55px */
+    .main-header {
+        height: 70px; /* Suficiente para el logo de 55px */
+        padding: 5px var(--spacing-small);
+    }
     
     /* 1. MOSTRAR EL BOTÓN DE HAMBURGUESA */
     .main-header #hamburgerBtn {
@@ -3546,6 +3583,7 @@ const hamburgerBtn = document.getElementById('hamburgerBtn');
 </script>
 </body>
 </html>
+
 
 
 
